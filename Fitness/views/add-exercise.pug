@@ -1,0 +1,33 @@
+doctype html
+html
+    include includes/head.pug
+    script(src="/static/js/add-exercise.js")
+    body: div.container
+        div.row
+            div.col-xs-12
+                h1.text-center Add exercise
+        div.row
+            div.col-xs-12.col-md-7
+                table.table#exerciseTable
+                    th X
+                    th Exercise
+                    th Description
+                    th Set
+                    th Repetitions/time
+                    if exercises
+                        each exercise in exercises
+                            tr
+                                td: input(type="checkbox")
+                                td= exercise.name
+                                td= exercise.desc
+                                td: input(name="sets", type="number")
+                                td: input(name="reps", type="text")
+                    else
+                        tr
+                            td
+                            td(colspan=4) No exercises has been added.
+                if exercises
+                    button.btn.btn-success.pull-right#btnAdd(type="submit") Add exercises
+            div.col-xs-12.col-md-3.col-md-offset-2: div.well
+                button.btn.btn-primary#btnBack Go back
+        div.hidden#programId= program.id

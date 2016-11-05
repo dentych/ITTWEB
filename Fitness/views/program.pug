@@ -1,0 +1,27 @@
+doctype html
+html
+    include includes/head.pug
+    script(src="/static/js/program.js")
+    body: div.container
+        div.row
+            div.col-xs-12
+                h1.text-center Fitness Program
+        div.row
+            div.col-xs-12.col-md-7
+                h2= program.title
+                if program.exercises
+                    p Exercises!
+                else
+                    table.table
+                        th Exercise
+                        th Description
+                        th Set
+                        th Repetitions/time
+                        tr
+                            td(colspan=4) No exercises has been added.
+            div.col-xs-12.col-md-3.col-md-offset-2: div.well
+                div.btn-group-vertical
+                    button.btn.btn-primary#btnAddExercise Add exercise(s)
+                    button.btn.btn-primary#btnComplete Complete program
+                    button.btn.btn-primary#btnHome Go home
+        div.hidden#programId= program.id

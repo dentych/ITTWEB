@@ -2,26 +2,41 @@ doctype html
 html
     include includes/head.pug
     script(src="/static/js/program.js")
+    style.
+        a.pointer:hover {
+            cursor:pointer;
+        }
     body: div.container
         div.row
             div.col-xs-12
                 h1.text-center Fitness Program
         div.row
-            div.col-xs-12.col-md-7
+            div.col-xs-12.col-md-8: div.well
                 h2= program.title
-                if program.exercises
-                    p Exercises!
-                else
-                    table.table
-                        th Exercise
-                        th Description
-                        th Set
-                        th Repetitions/time
+                table.table
+                    th Exercise
+                    th Description
+                    th Set
+                    th Repetitions/time
+                    th Actions
+                    if program.exercises && program.exercises.length > 0
+                        each exercise, index in program.exercises
+                            tr
+                                td= exercise.name
+                                td= exercise.desc
+                                td= exercise.set
+                                td= exercise.reps
+                                td: a.pointer(onclick="deleteExercise(" + index + ")"): i.material-icons delete_forever
+                    else
                         tr
-                            td(colspan=4) No exercises has been added.
-            div.col-xs-12.col-md-3.col-md-offset-2: div.well
+                            td(colspan=5) No exercises has been added.
+                p
+                    strong!= "Times completed: "
+                    span#completed= program.completed
+            div.col-xs-12.col-md-3.col-md-offset-1: div.well
                 div.btn-group-vertical
-                    button.btn.btn-primary#btnAddExercise Add exercise(s)
-                    button.btn.btn-primary#btnComplete Complete program
+                    if program.id >= 0
+                        button.btn.btn-primary#btnAddExercise Add exercise(s)
+                        button.btn.btn-primary#btnComplete Complete program
                     button.btn.btn-primary#btnHome Go home
         div.hidden#programId= program.id

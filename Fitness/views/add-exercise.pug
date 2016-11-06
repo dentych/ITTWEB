@@ -7,7 +7,11 @@ html
             div.col-xs-12
                 h1.text-center Add exercise
         div.row
-            div.col-xs-12.col-md-7
+            div.col-xs-12.col-md-8: div.well
+                p.
+                    Please choose the exercises you want to add from the list below. You can choose multiple exercises.
+                    For every exercise you choose, you have to fill out the corresponding set and repetitions fields.
+                br
                 table.table#exerciseTable
                     th X
                     th Exercise
@@ -17,17 +21,19 @@ html
                     if exercises
                         each exercise in exercises
                             tr
-                                td: input(type="checkbox")
+                                td: div.checkbox(style="margin:0;padding:0"): label: input(type="checkbox", name="checkbox")
                                 td= exercise.name
                                 td= exercise.desc
-                                td: input(name="sets", type="number")
-                                td: input(name="reps", type="text")
+                                td.form-group: input.form-control(name="sets", type="number")
+                                td.form-group: input.form-control(name="reps", type="text")
                     else
                         tr
                             td
                             td(colspan=4) No exercises has been added.
                 if exercises
+                    span#error.text-danger
                     button.btn.btn-success.pull-right#btnAdd(type="submit") Add exercises
-            div.col-xs-12.col-md-3.col-md-offset-2: div.well
+                    div.clearfix
+            div.col-xs-12.col-md-3.col-md-offset-1: div.well
                 button.btn.btn-primary#btnBack Go back
         div.hidden#programId= program.id

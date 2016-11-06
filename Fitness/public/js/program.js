@@ -6,12 +6,27 @@ $(document).ready(function () {
     });
 
     $("#btnComplete").click(function () {
-        alert("You marked the program as completed!");
+        // Send data
+        $.post("/program/" + id + "/complete", function (data) {
+            $("span#completed").text(data);
+        });
     });
 
     $("#btnAddExercise").click(function () {
         window.location.href = "/program/" + id + "/add-exercise";
     });
-
-    $("#wat").text(window.location.pathname);
 });
+
+function deleteExercise(index) {
+    var id = $("#programId").text();
+    $.ajax({
+        url: "/program/" + id + "/exercise/" + index,
+        type: 'DELETE',
+        success: function(data) {
+            console.log("received:");
+            console.log(data);
+            window.location.reload();
+        },
+        contentType: "text/json"
+    });
+}

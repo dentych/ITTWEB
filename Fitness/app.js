@@ -47,6 +47,11 @@ app.get("/", function (req, res) {
 
 });
 
+app.post("/", function (req, res) {
+   console.log("got it!")
+});
+
+
 app.get("/program/:id", function (req, res) {
     let program = programs[req.params.id];
     if (program == undefined) {
@@ -71,7 +76,6 @@ app.get("/data", function (req, res) {
 app.post("/program/:id/add-exercise", function (req, res) {
     let received = req.body.chosenExercises;
     let id = req.params.id;
-    console.log("Andreas test 1");
 
     if (received.length <= 0 || received == undefined) {
         res.sendStatus(400);

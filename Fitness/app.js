@@ -6,6 +6,10 @@ let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
 
 mongoose.connect("mongodb://localhost/fitnesshelper");
+let exerciseSchema = require("./database/exercise");
+let programSchema = require("./database/program");
+mongoose.model("Exercise", exerciseSchema);
+mongoose.model("Program", programSchema);
 
 app.use("/static", express.static("public"));
 app.use("/static/css", express.static("node_modules/bootstrap-material-design/dist/css"));
@@ -70,6 +74,10 @@ app.get("/data", function (req, res) {
     res.send(JSON.stringify(data));
 });
 
+app.get("/create-exercise", function (req, res) {
+    res.render("create-exercise");
+});
+
 app.post("/", function (req, res) {
     console.log("POST REQUEST TO /");
     let programName = req.body.programName;
@@ -126,6 +134,11 @@ app.post("/program/:id/complete", function (req, res) {
         program.completed += 1;
     }
     res.send(program.completed.toString());
+});
+
+app.post("/create-exercise", function (req, res) {
+    console.log(req.body);
+    res.send("success");
 });
 
 app.delete("/program/:id/exercise/:exercise", function (req, res) {

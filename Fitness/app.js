@@ -14,19 +14,7 @@ app.use(bodyparser.urlencoded({extended: true}));
 app.set("view engine", "pug");
 
 // Exercises will be kept in this variable
-var programs = [
-    {
-        title: "My Program",
-        completed: 0,
-        exercises: []
-    },
-    {
-        title: "My second program",
-        completed: 0,
-        exercises: []
-    }
-];
-
+var programs = [];
 var exercises = [
     {
         name: "Pushup",

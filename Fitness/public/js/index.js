@@ -2,7 +2,7 @@ $(document).ready(function () {
     $("#btnAddProgram").click(function () {
         var programName = prompt("Enter Program name:", "Titel here");
 
-        if(programName != null) {
+        if(programName !== "") {
             $.ajax({
                 url: "/",
                 method: "POST",

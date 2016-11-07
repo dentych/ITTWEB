@@ -23,18 +23,16 @@ html
                 div.clearfix
                 div.table-responsive: table.table.table-hover
                     th Titel
-                    th Id
                     th Completed
                     th Actions
                     if programs.length > 0
-                        each program, index in programs
+                        each program in programs
                             tr
                                 td= program.title
-                                td= index
                                 td= program.completed
                                 td
-                                    a.pointer(onclick="seeProgram(" + index + ")"): i.material-icons info_outline
-                                    a.pointer(onclick="deleteProgram(" + index + ")"): i.material-icons delete_forever
+                                    a.pointer(onclick="seeProgram('" + program._id + "')"): i.material-icons info_outline
+                                    a.pointer(onclick="deleteProgram('" + program._id + "')"): i.material-icons delete_forever
 
                     else
                         tr

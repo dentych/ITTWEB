@@ -5,18 +5,19 @@ let morgan = require("morgan");
 let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
 
+mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/fitnesshelper");
 let exerciseSchema = require("./database/exercise");
 let programSchema = require("./database/program");
-mongoose.model("Exercise", exerciseSchema);
-mongoose.model("Program", programSchema);
+var exerciseModel = mongoose.model("Exercise", exerciseSchema);
+var programModel = mongoose.model("Program", programSchema);
 
 app.use("/static", express.static("public"));
 app.use("/static/css", express.static("node_modules/bootstrap-material-design/dist/css"));
 app.use("/static/js", express.static("node_modules/bootstrap-material-design/dist/js"));
 app.use(morgan("dev"));
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.urlencoded({ extended: true }));
 
 app.set("view engine", "pug");
 
@@ -44,20 +45,28 @@ var exercises = [
 ];
 
 app.get("/", function (req, res) {
-    res.render("index", {
-        title: "Fitness Helper 3000",
-        message: "Welcome to Fitness Helper 3000",
-        programs: programs
-    });
 
+    programModel.find({}, function (err, dbPrograms) {
+        var programMap = [];
+
+        dbPrograms.forEach(function (program) {
+            programMap.push(program);
+            console.log(program);
+        });
+        res.render("index", {
+            title: "Fitness Helper 3000",
+            message: "Welcome to Fitness Helper 3000",
+            programs: programMap
+        });
+    });
 });
 
 app.get("/program/:id", function (req, res) {
     let program = programs[req.params.id];
     if (program == undefined) {
-        program = {title: "Program not found"};
+        program = { title: "Program not found" };
     }
-    res.render("program", {title: "Program", id: req.params.id, program: program});
+    res.render("program", { title: "Program", id: req.params.id, program: program });
 });
 
 
@@ -70,7 +79,7 @@ app.get("/program/:id/add-exercise", function (req, res) {
 });
 
 app.get("/data", function (req, res) {
-    var data = {programs: programs, exercises: exercises};
+    var data = { programs: programs, exercises: exercises };
     res.send(JSON.stringify(data));
 });
 
@@ -81,12 +90,19 @@ app.get("/create-exercise", function (req, res) {
 app.post("/", function (req, res) {
     console.log("POST REQUEST TO /");
     let programName = req.body.programName;
-    programs.push({
-        title: programName,
-        completed: 0,
-        exercises: []
+
+    var program = new programModel({ title: programName, completed: 0, exercises: [] })
+
+    program.save(function (err) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(400);
+        } else {
+            console.log("yeah, good fucking going");
+            res.send("success");
+        }
     });
-    res.send("success");
+
 });
 
 app.post("/program/:id/add-exercise", function (req, res) {
@@ -116,7 +132,7 @@ app.post("/program/:id/add-exercise", function (req, res) {
 
     console.log("Received:");
     console.log(received);
-    res.json({url: "/program/" + id});
+    res.json({ url: "/program/" + id });
 });
 
 app.post("/program/:id/complete", function (req, res) {
@@ -157,9 +173,17 @@ app.delete("/program/:id/exercise/:exercise", function (req, res) {
 });
 
 app.delete("/program/:id/delete", function (req, res) {
-    programs.splice(req.params.id, 1);
 
-    res.send("success");
+    let programId = req.params.id;
+    programModel.remove({ _id: programId }, function (err) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(400);
+        } else {
+            console.log("Deleted program with id: " + programId);
+            res.send("success");
+        }
+    });
 });
 
 app.listen(3000, () => {

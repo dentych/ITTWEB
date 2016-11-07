@@ -2,6 +2,8 @@ doctype html
 html
     head
         link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css")
+        include includes/head.pug
+        script(src="/static/js/index.js")
         title Fitness Helper 3000
     body
         div.container
@@ -18,7 +20,7 @@ html
                         |This way, you will always be able to pull your exercise sets up when you need them.
             div.row
                 div.col-md-12
-                    button.btn.btn-primary.pull-right(style="margin-bottom:10px;")#btnAddpProgram Add program
+                    button.btn.btn-primary.pull-right(style="margin-bottom:10px;")#btnAddProgram Add program
                       
             table.table
                 th Exercise

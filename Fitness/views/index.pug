@@ -23,10 +23,15 @@ html
                     button.btn.btn-primary.pull-right(style="margin-bottom:10px;")#btnAddProgram Add program
                       
             table.table
-                th Exercise
-                th Description
-                th Set
-                th Repetitions/time
-                th Actions
-                tr
-                    td(colspan=5) No programs has been added.
+                th Titel
+                th Id
+                th Completed
+                if programs
+                    each program in programs
+                        tr
+                            td= program.title
+                            td= program.id
+                            td= program.completed
+                else
+                    tr
+                        td(colspan=4) No program has been added.

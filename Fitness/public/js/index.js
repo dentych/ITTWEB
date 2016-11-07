@@ -9,5 +9,6 @@ $(document).ready(function () {
         document.getElementById("btnAddProgram").innerHTML = programName;
         }
 
+        console.log("Program Name: " + programName)
     });
 });

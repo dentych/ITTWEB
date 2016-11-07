@@ -39,38 +39,15 @@ var exercises = [
 ];
 
 app.get("/", function (req, res) {
-    res.render("index", {title: "Fitness Helper 3000", message: "Welcome to Fitness Helper 3000"});
-});
+        console.log("hot damn" + programs)
 
-app.post("/", function (req, res) {
-    let received = req.body.chosenPrograms;
-    let id = req.params.id;
-
-    if (received.length <= 0 || received == undefined) {
-        res.sendStatus(400);
-    } else if (programs[id] == undefined) {
-        res.sendStatus(400);
-    }
-
-    if (programs[id] == undefined) {
-        programs[id] = [];
-    }
-
-    received.forEach(function (element) {
-        let chosenProgram = programs[element.id];
-        let program = {
-            name: chosenProgram.name,
-            desc: chosenProgram.desc,
-        };
-        programs[id].exercises.push(exercise);
+    res.render("index", {
+        title: "Fitness Helper 3000",
+        message: "Welcome to Fitness Helper 3000",
+        programs: programs
     });
 
-    console.log("Received:");
-    console.log(received);
-    res.json({url: "/program/" + id});
 });
-
-
 
 app.get("/program/:id", function (req, res) {
     let program = programs[req.params.id];
@@ -81,7 +58,6 @@ app.get("/program/:id", function (req, res) {
 });
 
 app.get("/program/:id/add-exercise", function (req, res) {
-        console.log("Andreas test 3");
 
     res.render("add-exercise", {
         title: "Add exercises", program: {id: req.params.id},

@@ -17,7 +17,7 @@ app.use("/static/css", express.static("node_modules/bootstrap-material-design/di
 app.use("/static/js", express.static("node_modules/bootstrap-material-design/dist/js"));
 app.use(morgan("dev"));
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.urlencoded({extended: true}));
 
 app.set("view engine", "pug");
 
@@ -62,11 +62,19 @@ app.get("/", function (req, res) {
 });
 
 app.get("/program/:id", function (req, res) {
-    let program = programs[req.params.id];
-    if (program == undefined) {
-        program = { title: "Program not found" };
-    }
-    res.render("program", { title: "Program", id: req.params.id, program: program });
+    programModel.findOne({_id: req.params.id}, "title completed exercises").exec(function (err, program) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(400);
+        } else {
+            program.exercises.forEach(function (exercise) {
+                let exerciseInfo = exercises[exercise.exerciseInfo];
+                exercise.name = exerciseInfo.name;
+                exercise.desc = exerciseInfo.desc;
+            });
+            res.render("program", {title: "Program", id: req.params.id, program: program});
+        }
+    });
 });
 
 app.get("/program/:id/add-exercise", function (req, res) {
@@ -78,7 +86,7 @@ app.get("/program/:id/add-exercise", function (req, res) {
 });
 
 app.get("/data", function (req, res) {
-    var data = { programs: programs, exercises: exercises };
+    var data = {programs: programs, exercises: exercises};
     res.send(JSON.stringify(data));
 });
 
@@ -87,17 +95,15 @@ app.get("/create-exercise", function (req, res) {
 });
 
 app.post("/", function (req, res) {
-    console.log("POST REQUEST TO /");
     let programName = req.body.programName;
 
-    var program = new programModel({ title: programName, completed: 0, exercises: [] })
+    var program = new programModel({title: programName, completed: 0, exercises: []})
 
     program.save(function (err) {
         if (err) {
             console.log(err);
             res.sendStatus(400);
         } else {
-            console.log("yeah, good fucking going");
             res.send("success");
         }
     });
@@ -110,45 +116,51 @@ app.post("/program/:id/add-exercise", function (req, res) {
 
     if (received.length <= 0 || received == undefined) {
         res.sendStatus(400);
-    } else if (programs[id] == undefined) {
-        res.sendStatus(400);
     }
 
-    if (programs[id].exercises == undefined) {
-        programs[id].exercises = [];
-    }
-
+    let receivedExercises = [];
     received.forEach(function (element) {
-        let chosenExercise = exercises[element.id];
+        if (exercises[element.id] == undefined) {
+            res.status(400).send("Couldn't find the exercise with the given ID");
+        }
+
         let exercise = {
-            name: chosenExercise.name,
-            desc: chosenExercise.desc,
-            set: element.set,
+            exerciseInfo: element.id,
+            sets: element.sets,
             reps: element.reps
         };
-        programs[id].exercises.push(exercise);
+
+        receivedExercises.push(exercise);
     });
 
-    console.log("Received:");
-    console.log(received);
-    res.json({ url: "/program/" + id });
+    programModel.findOneAndUpdate({_id: id}, {
+        $push: {"exercises": {$each: receivedExercises}}
+    }, function (err, model) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(400);
+        } else {
+            res.json({url: "/program/" + id});
+        }
+    });
 });
 
 app.post("/program/:id/complete", function (req, res) {
     let id = req.params.id;
-    let program = programs[id];
 
-    if (program == undefined) {
-        res.sendStatus(400);
-        return false;
-    }
-
-    if (program.completed == undefined) {
-        program.completed = 1;
-    } else {
-        program.completed += 1;
-    }
-    res.send(program.completed.toString());
+    programModel.findOneAndUpdate({_id: id}, {
+        $inc: {completed: 1}
+    })
+        .select("completed")
+        .exec(function (err, model) {
+            if (err) {
+                console.log("Error updating completed value of program");
+                console.log(err);
+            } else {
+                let newValue = model.completed + 1;
+                res.send(newValue.toString());
+            }
+        });
 });
 
 app.post("/create-exercise", function (req, res) {
@@ -171,26 +183,26 @@ app.delete("/program/:id/exercise/:exercise", function (req, res) {
     let programId = req.params.id;
     let exerciseId = req.params.exercise;
 
-    let program = programs[programId];
-
-    if (program != undefined && program.exercises != undefined) {
-        console.log("Deleting exercise: " + programId + " - " + exerciseId);
-        program.exercises.splice(exerciseId, 1);
-        res.send("success");
-    } else {
-        res.sendStatus(400);
-    }
+    programModel.findOneAndUpdate({_id: programId}, {
+        $pull: {exercises: {_id: exerciseId}}
+    }).exec(function (err, model) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(400);
+        } else {
+            res.send("success");
+        }
+    });
 });
 
 app.delete("/program/:id/delete", function (req, res) {
 
     let programId = req.params.id;
-    programModel.remove({ _id: programId }, function (err) {
+    programModel.remove({_id: programId}, function (err) {
         if (err) {
             console.log(err);
             res.sendStatus(400);
         } else {
-            console.log("Deleted program with id: " + programId);
             res.send("success");
         }
     });

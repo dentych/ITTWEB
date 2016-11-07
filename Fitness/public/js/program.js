@@ -8,6 +8,7 @@ $(document).ready(function () {
     $("#btnComplete").click(function () {
         // Send data
         $.post("/program/" + id + "/complete", function (data) {
+            console.log(data);
             $("span#completed").text(data);
         });
     });

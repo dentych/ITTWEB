@@ -20,13 +20,13 @@ html
                     th Repetitions/time
                     th Actions
                     if program.exercises && program.exercises.length > 0
-                        each exercise, index in program.exercises
+                        each exercise in program.exercises
                             tr
                                 td= exercise.name
                                 td= exercise.desc
-                                td= exercise.set
+                                td= exercise.sets
                                 td= exercise.reps
-                                td: a.pointer(onclick="deleteExercise(" + index + ")"): i.material-icons delete_forever
+                                td: a.pointer(onclick="deleteExercise('" + exercise._id + "')"): i.material-icons delete_forever
                     else
                         tr
                             td(colspan=5) No exercises has been added.
@@ -35,7 +35,7 @@ html
                     span#completed= program.completed
             div.col-xs-12.col-md-3.col-md-offset-1: div.well
                 div.btn-group-vertical
-                    if id >= 0 && program.completed >= 0
+                    if id && program.completed >= 0
                         button.btn.btn-primary#btnAddExercise Add exercise(s)
                         button.btn.btn-primary#btnComplete Complete program
                     button.btn.btn-primary#btnHome Go home

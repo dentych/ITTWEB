@@ -23,13 +23,13 @@ $(document).ready(function () {
             console.log(checkbox);
 
             if (checkbox[0].checked) {
-                var set = items.find("input[name=sets]").val();
-                var rep = items.find("input[name=reps]").val();
-                if (set.length > 0 && rep.length > 0) {
+                var sets = items.find("input[name=sets]").val();
+                var reps = items.find("input[name=reps]").val();
+                if (sets.length > 0 && reps.length > 0) {
                     chosenExercises.push({
                         id: index - 1,
-                        set: set,
-                        reps: rep
+                        sets: sets,
+                        reps: reps
                     });
                 }
                 else {

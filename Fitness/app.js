@@ -6,6 +6,7 @@ let app = express();
 let morgan = require("morgan");
 let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
+let favicon = require("serve-favicon");
 
 // Setup
 mongoose.Promise = global.Promise;
@@ -27,6 +28,7 @@ app.use("/static/js", express.static("node_modules/bootstrap-material-design/dis
 app.use(morgan("dev"));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: true}));
+app.use(favicon(__dirname + "/public/favicon.png"));
 
 app.set("view engine", "pug");
 
@@ -61,7 +63,6 @@ app.get("/", function (req, res) {
 
         dbPrograms.forEach(function (program) {
             programMap.push(program);
-            console.log(program);
         });
         res.render("index", {
             title: "Fitness Helper 3000",

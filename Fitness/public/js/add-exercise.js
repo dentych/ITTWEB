@@ -51,4 +51,8 @@ $(document).ready(function () {
 
         $(this).prop("disabled", false);
     });
+
+    $("#btnNewExercise").click(function () {
+        window.location.href = "/create-exercise";
+    });
 });

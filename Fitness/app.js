@@ -69,7 +69,6 @@ app.get("/program/:id", function (req, res) {
     res.render("program", { title: "Program", id: req.params.id, program: program });
 });
 
-
 app.get("/program/:id/add-exercise", function (req, res) {
 
     res.render("add-exercise", {
@@ -153,8 +152,19 @@ app.post("/program/:id/complete", function (req, res) {
 });
 
 app.post("/create-exercise", function (req, res) {
-    console.log(req.body);
-    res.send("success");
+    if (req.body.title == undefined || req.body.description == undefined) {
+        res.sendStatus(400);
+        return false;
+    }
+
+    let exercise = {
+        name: req.body.title,
+        desc: req.body.description
+    };
+
+    exercises.push(exercise);
+
+    res.redirect("/");
 });
 
 app.delete("/program/:id/exercise/:exercise", function (req, res) {

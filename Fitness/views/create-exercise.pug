@@ -1,0 +1,22 @@
+doctype html
+html
+    include includes/head.pug
+    script(src="/static/js/create-exercise.js")
+    body: div.container
+        div.row
+            div.col-xs-12
+                h1.text-center Create new exercise
+        div.row
+            div.col-md-12.well.well-sm
+                form#form(action="/create-exercise", method="post")
+                    div.form-group
+                        label(for="title") Exercise name
+                        input.form-control#title(type="text" name="title" placeholder="Exercise name", required)
+                    div.form-group
+                        label(for="description") Description
+                        input.form-control#description(type="text" name="description" placeholder="Exercise description", required)
+                    button.btn.btn-primary.btn-raised.pull-right#formSubmit Create exercise
+    script.
+        $(document).ready(function () {
+            $.material.init();
+        });

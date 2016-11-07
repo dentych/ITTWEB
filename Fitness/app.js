@@ -1,12 +1,21 @@
 "use strict";
+
+// Requires
 let express = require("express");
 let app = express();
 let morgan = require("morgan");
 let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
 
+// Setup
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/fitnesshelper");
+let db = mongoose.connection;
+db.on("error", function (err) {
+    console.log("DB connection failed: " + err.message);
+    process.exit(1);
+});
+
 let exerciseSchema = require("./database/exercise");
 let programSchema = require("./database/program");
 var exerciseModel = mongoose.model("Exercise", exerciseSchema);
@@ -44,6 +53,7 @@ var exercises = [
     }
 ];
 
+// Controllers
 app.get("/", function (req, res) {
 
     programModel.find({}, function (err, dbPrograms) {
@@ -67,6 +77,10 @@ app.get("/program/:id", function (req, res) {
             console.log(err);
             res.sendStatus(400);
         } else {
+            if (program == undefined) {
+                res.render("program", {title: "Program", program: {title: "Program not found"}});
+                return false;
+            }
             program.exercises.forEach(function (exercise) {
                 let exerciseInfo = exercises[exercise.exerciseInfo];
                 exercise.name = exerciseInfo.name;
@@ -208,6 +222,7 @@ app.delete("/program/:id/delete", function (req, res) {
     });
 });
 
+// Start server listener
 app.listen(3000, () => {
     console.log("listening on port 3000");
 });

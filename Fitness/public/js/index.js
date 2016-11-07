@@ -1,8 +1,9 @@
 $(document).ready(function () {
+    $.material.init();
     $("#btnAddProgram").click(function () {
         var programName = prompt("Enter Program name:", "Titel here");
 
-        if(programName !== "") {
+        if(programName !== "" && programName != undefined) {
             $.ajax({
                 url: "/",
                 method: "POST",

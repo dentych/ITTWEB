@@ -1,23 +1,20 @@
 $(document).ready(function () {
-
-
     $("#btnAddProgram").click(function () {
-
         var programName = prompt("Enter Program name:", "Titel here");
-        
-
 
         if(programName != null) {
-
             $.ajax({
-                type: "POST",
-                url: "/",                
-                data: {programName:programName},
+                url: "/",
+                method: "POST",
+                data: JSON.stringify({programName: programName}),
+                contentType: "application/json",
                 success: function(msg){
-                    console.log("now??");
-                    console.log(msg);
+                    window.location.reload();
                 },
-                contentType: "text/json"
+                error: function(msg) {
+                    console.log("Much error");
+                    console.log(msg);
+                }
             });
         }
     });    
@@ -25,4 +22,19 @@ $(document).ready(function () {
 
 function seeProgram(index) {
     window.location.href = "/program/" + index;
+}
+
+function deleteProgram(index) {
+    var answer = confirm("You damn sure u gon delete dis program?");
+
+    if (answer) {
+        $.ajax({
+            url: "/program/" + index + "/delete",
+            type: "DELETE",
+            success: function(data) {
+                window.location.reload();
+            },
+            contentType: "application/json"
+        });
+    }
 }

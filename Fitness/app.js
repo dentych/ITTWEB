@@ -17,13 +17,13 @@ app.set("view engine", "pug");
 var programs = [
     {
         title: "My Program",
-        id: 0,
-        completed: 0
+        completed: 0,
+        exercises: []
     },
     {
         title: "My second program",
-        id: 1,
-        completed: 0
+        completed: 0,
+        exercises: []
     }
 ];
 
@@ -33,8 +33,18 @@ var exercises = [
         desc: "You push yourself up and down with thy arms."
     },
     {
-        name: "Run",
-        desc: "Running"
+        name: "Lunges",
+        desc: "Keep your upper body straight, with your shoulders back and relaxed and chin up " +
+        "(pick a point to stare at in front of you so you don't keep looking down). Always engage your core." +
+        "Step forward with one leg, lowering your hips until both knees are bent at about a 90-degree angle."
+    },
+    {
+        name: "Right plank",
+        desc: "Lie on your right side and support your body with your elbow. Lift bækkenet until the body is fully streched."
+    },
+    {
+        name: "Left plank",
+        desc: "Lie on your left side and support your body with your elbow. Lift bækkenet until the body is fully streched."
     }
 ];
 
@@ -47,23 +57,19 @@ app.get("/", function (req, res) {
 
 });
 
-app.post("/", function (req, res) {
-   console.log("got it!")
-});
-
-
 app.get("/program/:id", function (req, res) {
     let program = programs[req.params.id];
     if (program == undefined) {
         program = {title: "Program not found"};
     }
-    res.render("program", {title: "Program", program: program});
+    res.render("program", {title: "Program", id: req.params.id, program: program});
 });
+
 
 app.get("/program/:id/add-exercise", function (req, res) {
 
     res.render("add-exercise", {
-        title: "Add exercises", program: {id: req.params.id},
+        title: "Add exercises", id: req.params.id,
         exercises: exercises
     });
 });
@@ -71,6 +77,17 @@ app.get("/program/:id/add-exercise", function (req, res) {
 app.get("/data", function (req, res) {
     var data = {programs: programs, exercises: exercises};
     res.send(JSON.stringify(data));
+});
+
+app.post("/", function (req, res) {
+    console.log("POST REQUEST TO /");
+    let programName = req.body.programName;
+    programs.push({
+        title: programName,
+        completed: 0,
+        exercises: []
+    });
+    res.send("success");
 });
 
 app.post("/program/:id/add-exercise", function (req, res) {
@@ -135,6 +152,12 @@ app.delete("/program/:id/exercise/:exercise", function (req, res) {
     }
 });
 
+app.delete("/program/:id/delete", function (req, res) {
+    programs.splice(req.params.id, 1);
+
+    res.send("success");
+});
+
 app.listen(3000, () => {
-    console.log("listening on port 3000");    
+    console.log("listening on port 3000");
 });

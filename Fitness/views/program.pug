@@ -35,8 +35,8 @@ html
                     span#completed= program.completed
             div.col-xs-12.col-md-3.col-md-offset-1: div.well
                 div.btn-group-vertical
-                    if program.id >= 0
+                    if id >= 0
                         button.btn.btn-primary#btnAddExercise Add exercise(s)
                         button.btn.btn-primary#btnComplete Complete program
                     button.btn.btn-primary#btnHome Go home
-        div.hidden#programId= program.id
+        div.hidden#programId= id

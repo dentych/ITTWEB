@@ -40,7 +40,6 @@ $(document).ready(function () {
         });
 
         if (chosenExercises.length > 0) {
-            console.log("Andreas test 2222222");
 
             errorSpan.text("");
             // Send data

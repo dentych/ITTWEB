@@ -1,37 +1,39 @@
 doctype html
 html
-    head
-        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css")
-        include includes/head.pug
-        script(src="/static/js/index.js")
-        title Fitness Helper 3000
-    body
-        div.container
+    include includes/head.pug
+    script(src="/static/js/index.js")
+    style.
+        a.pointer:hover {
+            cursor:pointer;
+        }
+    body: div.container
+        div.row
+            div.col-xs-12
+                h1.text-center Fitness Helper 3000
+        div.row
+            div.col-md-12.well.well-sm
+                h2 What is Fitness Helper 3000
+                p 
+                    |Fitness Helper 3000 is a website, that can help you keep track of your exercise sets. You can add new sets,
+                    |edit old ones or remove them entirely. You decide how the sets should be made, and we'll same them for you. 
+                    |This way, you will always be able to pull your exercise sets up when you need them.
+        div.row
+            div.col-md-12.well.well-sm
+                button.btn.btn-primary.pull-right(style="margin-bottom:10px;")#btnAddProgram Add program
+       
+                table.table
+                    th Titel
+                    th Id
+                    th Completed
+                    th Actions
+                    if programs
+                        each program in programs
+                            tr
+                                td= program.title
+                                td= program.id
+                                td= program.completed
+                                td: a.pointer(onclick="seeProgram(" + program.id + ")"): i.material-icons info_outline
 
-            div.row
-                div.col-xs-12
-                    h1.text-center Fitness Helper 3000
-            div.row
-                div.col-md-12.well.well-sm
-                    h2 What is Fitness Helper 3000
-                    p 
-                        |Fitness Helper 3000 is a website, that can help you keep track of your exercise sets. You can add new sets,
-                        |edit old ones or remove them entirely. You decide how the sets should be made, and we'll same them for you. 
-                        |This way, you will always be able to pull your exercise sets up when you need them.
-            div.row
-                div.col-md-12
-                    button.btn.btn-primary.pull-right(style="margin-bottom:10px;")#btnAddProgram Add program
-                      
-            table.table
-                th Titel
-                th Id
-                th Completed
-                if programs
-                    each program in programs
+                    else
                         tr
-                            td= program.title
-                            td= program.id
-                            td= program.completed
-                else
-                    tr
-                        td(colspan=4) No program has been added.
+                            td(colspan=4) No program has been added.

@@ -39,8 +39,6 @@ var exercises = [
 ];
 
 app.get("/", function (req, res) {
-        console.log("hot damn" + programs)
-
     res.render("index", {
         title: "Fitness Helper 3000",
         message: "Welcome to Fitness Helper 3000",

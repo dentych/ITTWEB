@@ -10,5 +10,11 @@ $(document).ready(function () {
         }
 
         console.log("Program Name: " + programName)
-    });
+    });    
 });
+
+function seeProgram(index) {
+
+    window.location.href = "/program/" + index;
+    
+}

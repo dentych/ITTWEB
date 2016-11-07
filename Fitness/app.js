@@ -3,6 +3,9 @@ let express = require("express");
 let app = express();
 let morgan = require("morgan");
 let bodyparser = require("body-parser");
+let mongoose = require("mongoose");
+
+mongoose.connect("mongodb://localhost/fitnesshelper");
 
 app.use("/static", express.static("public"));
 app.use("/static/css", express.static("node_modules/bootstrap-material-design/dist/css"));

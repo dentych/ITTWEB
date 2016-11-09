@@ -17,12 +17,10 @@ db.on("error", function (err) {
     process.exit(1);
 });
 
-let exerciseSchema = require("./database/exercise");
 let programSchema = require("./database/program");
-var exerciseModel = mongoose.model("Exercise", exerciseSchema);
 var programModel = mongoose.model("Program", programSchema);
 
-app.use("/static", express.static("public"));
+app.use("/static", express.static("public/"));
 app.use("/static/css", express.static("node_modules/bootstrap-material-design/dist/css"));
 app.use("/static/js", express.static("node_modules/bootstrap-material-design/dist/js"));
 app.use(morgan("dev"));
@@ -52,6 +50,11 @@ var exercises = [
     {
         name: "Left plank",
         desc: "Lie on your left side and support your body with your elbow. Lift bækkenet until the body is fully streched."
+    },
+    {
+        name: "Squat",
+        desc: "Stand straight with feet hip-width apart. Stand with your feet apart, directly under your hips, and place your hands on your hips." +
+        "Tighten your stomach muscles. Lower down, as if sitting and then straighten your legs."
     }
 ];
 
@@ -179,6 +182,10 @@ app.post("/program/:id/complete", function (req, res) {
 });
 
 app.post("/create-exercise", function (req, res) {
+    res.send("not implemented");
+    return;
+
+    // Not needed. It was a nice-to-have feature.
     if (req.body.title == undefined || req.body.description == undefined) {
         res.sendStatus(400);
         return false;

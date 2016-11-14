@@ -5,7 +5,7 @@ let jwt = require("jsonwebtoken");
 module.exports = function (userModel) {
     let router = express.Router();
 
-    router.post("/create", function (req, res) {
+    router.post("/register", function (req, res) {
         let email = req.body.email;
         let passwd = req.body.password;
         let salt = crypto.randomBytes(16).toString("hex");
@@ -13,7 +13,7 @@ module.exports = function (userModel) {
 
         let user = new userModel({
             email: email,
-            password: hashedPasswd,
+            hash: hashedPasswd,
             salt: salt
         });
 
@@ -62,7 +62,7 @@ function authUser(user, password) {
     console.log(user.salt);
     console.log(hash);
 
-    return (hash == user.password);
+    return (hash == user.hash);
 }
 
 function generateHash(password, salt) {

@@ -6,11 +6,7 @@ let mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/fitnessapi");
 mongoose.Promise = global.Promise;
 
-let userSchema = new mongoose.Schema({
-    email: String,
-    password: String,
-    salt: String
-});
+let userSchema = require("./database/userSchema");
 
 let programSchema = new mongoose.Schema({
     title: String,
@@ -30,7 +26,7 @@ app.use(bodyparser.json());
 let userRoutes = require("./routes/userRoutes")(userModel);
 app.use("/api", userRoutes);
 
-let programRoutes = require("./routes/program")(programModel);
+let programRoutes = require("./routes/programRoutes")(programModel);
 app.use("/api", programRoutes);
 
 app.use(bodyparser.json());

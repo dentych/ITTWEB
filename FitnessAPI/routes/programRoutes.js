@@ -1,5 +1,5 @@
 let express = require("express");
-let exercises = require("./exercise.js");
+let exercises = require("./exercises.js");
 
 module.exports = function(programModel) {
     let router = express.Router();

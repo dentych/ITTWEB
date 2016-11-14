@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
 
 module.exports = new mongoose.Schema({
-    username: String,
+    email: String,
     hash: String,
     salt: String
 });

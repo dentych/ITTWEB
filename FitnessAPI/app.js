@@ -7,16 +7,7 @@ mongoose.connect("mongodb://localhost/fitnessapi");
 mongoose.Promise = global.Promise;
 
 let userSchema = require("./database/userSchema");
-
-let programSchema = new mongoose.Schema({
-    title: String,
-    completed: Number,
-    exercises: [{
-        exerciseInfo: Number,
-        sets: Number,
-        reps: String
-    }]
-});
+let programSchema = require("./database/programSchema");
 
 let userModel = mongoose.model("User", userSchema);
 let programModel = mongoose.model("Program", programSchema);

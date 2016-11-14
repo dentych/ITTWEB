@@ -1,5 +1,6 @@
 let express = require("express");
 let crypto = require("crypto");
+let jwt = require("jsonwebtoken");
 
 module.exports = function (userModel) {
     let router = express.Router();

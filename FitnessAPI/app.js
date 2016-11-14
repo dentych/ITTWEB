@@ -16,7 +16,7 @@ let userModel = mongoose.model("User", userSchema);
 
 app.use(bodyparser.json());
 
-let userRoutes = require("./routes/user")(userModel);
+let userRoutes = require("./routes/userRoutes")(userModel);
 app.use("/api", userRoutes);
 
 app.get("/", function (req, res) {

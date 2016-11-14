@@ -3,7 +3,7 @@ let app = express();
 let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
 
-mongoose.connect("mongodb://192.168.99.100/fitnessapi");
+mongoose.connect("mongodb://localhost/fitnessapi");
 mongoose.Promise = global.Promise;
 
 let userSchema = require("./database/userSchema");

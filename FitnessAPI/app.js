@@ -23,7 +23,7 @@ app.use("/api", programRoutes);
 app.use(bodyparser.json());
 
 app.get("/", function (req, res) {
-    res.send("ska vi knep?!");
+    res.send("Please go to /api to use the API :)");
 });
 
 app.listen(3000, function () {

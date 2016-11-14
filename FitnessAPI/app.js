@@ -12,12 +12,28 @@ let userSchema = new mongoose.Schema({
     salt: String
 });
 
+let programSchema = new mongoose.Schema({
+    title: String,
+    completed: Number,
+    exercises: [{
+        exerciseInfo: Number,
+        sets: Number,
+        reps: String
+    }]
+});
+
 let userModel = mongoose.model("User", userSchema);
+let programModel = mongoose.model("Program", programSchema);
 
 app.use(bodyparser.json());
 
 let userRoutes = require("./routes/user")(userModel);
 app.use("/api", userRoutes);
+
+let programRoutes = require("./routes/program")(programModel);
+app.use("/api", programRoutes);
+
+app.use(bodyparser.json());
 
 app.get("/", function (req, res) {
     res.send("ska vi knep?!");

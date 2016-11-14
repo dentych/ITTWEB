@@ -47,7 +47,6 @@ module.exports = function (userModel) {
             if (user && authUser(user, password)) {
                 res.json({msg: "successfully logged in"});
             } else {
-                console.log(user);
                 res.status(409).json({msg: "Wrong username or password"});
             }
         });
@@ -58,9 +57,6 @@ module.exports = function (userModel) {
 
 function authUser(user, password) {
     let hash = generateHash(password, user.salt);
-    console.log("salt");
-    console.log(user.salt);
-    console.log(hash);
 
     return (hash == user.hash);
 }

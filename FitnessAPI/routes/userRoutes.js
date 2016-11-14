@@ -8,6 +8,12 @@ module.exports = function (userModel) {
     router.post("/register", function (req, res) {
         let email = req.body.email;
         let passwd = req.body.password;
+
+        if (!email || !passwd) {
+            res.status(400).json({msg: "Missing email or password"});
+            return false;
+        }
+
         let salt = crypto.randomBytes(16).toString("hex");
         let hashedPasswd = generateHash(passwd, salt);
 
@@ -37,6 +43,11 @@ module.exports = function (userModel) {
     router.post("/login", function (req, res) {
         let email = req.body.email;
         let password = req.body.password;
+
+        if (!email || !password) {
+            res.status(400).json({msg: "Missing email or password"});
+            return false;
+        }
 
         userModel.findOne({email: email}, function (err, user) {
             if (err) {

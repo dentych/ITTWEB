@@ -3,8 +3,8 @@ let express = require("express");
 module.exports = function (logEntryModel) {
     let router = express.Router();
 
-    router.get("/logentries/:userId", function (req, res) {
-        let id = req.params.userId;
+    router.get("/logentries", function (req, res) {
+        let id = req.user.userId;
 
         if (!id) {
             res.status(400).json({msg: "User id needed"});
@@ -23,7 +23,7 @@ module.exports = function (logEntryModel) {
     });
 
     router.post("/logentries", function (req, res) {
-        let userId = req.body.userId;
+        let userId = req.user.userId;
         let programName = req.body.programName;
 
         if (!userId || !programName) {

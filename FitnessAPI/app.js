@@ -29,8 +29,6 @@ app.use("/api", programRoutes);
 let logEntryRoutes = require("./routes/logEntryRoutes")(logEntryModel);
 app.use("/api", logEntryRoutes);
 
-app.use(bodyparser.json());
-
 app.get("/", (req, res) => res.send("Please go to /api to use the API :)"));
 app.get("/api", (req, res) => res.send("API version: 1.0"));
 

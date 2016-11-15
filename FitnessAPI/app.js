@@ -8,9 +8,11 @@ mongoose.Promise = global.Promise;
 
 let userSchema = require("./database/userSchema");
 let programSchema = require("./database/programSchema");
+let logEntrySchema = require("./database/logEntrySchema");
 
 let userModel = mongoose.model("User", userSchema);
 let programModel = mongoose.model("Program", programSchema);
+let logEntryModel = mongoose.model("LogEntry", logEntrySchema);
 
 app.use(bodyparser.json());
 
@@ -19,6 +21,9 @@ app.use("/api", userRoutes);
 
 let programRoutes = require("./routes/programRoutes")(programModel);
 app.use("/api", programRoutes);
+
+let logEntryRoutes = require("./routes/logEntryRoutes")(logEntryModel);
+app.use("/api", logEntryRoutes);
 
 app.use(bodyparser.json());
 

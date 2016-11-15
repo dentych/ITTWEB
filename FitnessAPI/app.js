@@ -2,6 +2,7 @@ let express = require("express");
 let app = express();
 let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
+let morgan = require("morgan");
 
 mongoose.connect("mongodb://localhost/fitnessapi");
 mongoose.Promise = global.Promise;
@@ -15,6 +16,7 @@ let programModel = mongoose.model("Program", programSchema);
 let logEntryModel = mongoose.model("LogEntry", logEntrySchema);
 
 app.use(bodyparser.json());
+app.use(morgan("dev"));
 
 let userRoutes = require("./routes/userRoutes")(userModel);
 app.use("/api", userRoutes);
@@ -27,10 +29,9 @@ app.use("/api", logEntryRoutes);
 
 app.use(bodyparser.json());
 
-app.get("/", function (req, res) {
-    res.send("Please go to /api to use the API :)");
-});
+app.get("/", (req, res) => res.send("Please go to /api to use the API :)"));
+app.get("/api", (req, res) => res.send("API version: 1.0"));
 
-app.listen(3000, function () {
-    console.log("Fitness API started.. Listening on port 3000");
+app.listen(process.env.PORT, function () {
+    console.log("Fitness API started.. Listening on port " + process.env.PORT);
 });

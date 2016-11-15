@@ -3,6 +3,7 @@ let app = express();
 let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
 let morgan = require("morgan");
+let cors = require("cors");
 
 mongoose.connect("mongodb://localhost/fitnessapi");
 mongoose.Promise = global.Promise;
@@ -17,6 +18,7 @@ let logEntryModel = mongoose.model("LogEntry", logEntrySchema);
 
 app.use(bodyparser.json());
 app.use(morgan("dev"));
+app.use(cors());
 
 let userRoutes = require("./routes/userRoutes")(userModel);
 app.use("/api", userRoutes);

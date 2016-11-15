@@ -4,6 +4,7 @@ let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
 let morgan = require("morgan");
 let cors = require("cors");
+let ejwt = require("express-jwt");
 
 mongoose.connect("mongodb://localhost/fitnessapi");
 mongoose.Promise = global.Promise;
@@ -24,15 +25,24 @@ let userRoutes = require("./routes/userRoutes")(userModel);
 app.use("/api", userRoutes);
 
 let programRoutes = require("./routes/programRoutes")(programModel);
-app.use("/api", programRoutes);
+app.use("/api", ejwt({secret: process.env.JWT_KEY}), programRoutes);
 
 let logEntryRoutes = require("./routes/logEntryRoutes")(logEntryModel);
-app.use("/api", logEntryRoutes);
+app.use("/api", ejwt({secret: process.env.JWT_KEY}), logEntryRoutes);
 
 app.use(bodyparser.json());
 
 app.get("/", (req, res) => res.send("Please go to /api to use the API :)"));
 app.get("/api", (req, res) => res.send("API version: 1.0"));
+
+app.use(function (err, req, res, next) {
+    console.log("Error: " + err.name);
+    if (err.name === "UnauthorizedError") {
+        res.status(401).json({msg: "invalid token..."});
+    } else {
+        next();
+    }
+});
 
 app.listen(process.env.PORT, function () {
     console.log("Fitness API started.. Listening on port " + process.env.PORT);

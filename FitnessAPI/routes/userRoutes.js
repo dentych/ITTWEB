@@ -1,3 +1,4 @@
+let dotenv = require("dotenv").config();
 let express = require("express");
 let crypto = require("crypto");
 let jwt = require("jsonwebtoken");
@@ -35,7 +36,8 @@ module.exports = function (userModel) {
         let saveUserCallback = function (err, model) {
             if (err) sendError(err, res);
             else {
-                res.json({msg: "user created"});
+                let token = generateToken(model);
+                res.json({msg: "user created", token: token});
             }
         };
     });
@@ -56,7 +58,8 @@ module.exports = function (userModel) {
             }
 
             if (user && authUser(user, password)) {
-                res.json({msg: "successfully logged in"});
+                let token = generateToken(user);
+                res.json({msg: "successfully logged in", token: token});
             } else {
                 res.status(409).json({msg: "Wrong username or password"});
             }
@@ -65,6 +68,13 @@ module.exports = function (userModel) {
 
     return router;
 };
+function generateToken(user) {
+    return jwt.sign(
+        {userId: user._id, email: user.email},
+        process.env.JWT_KEY,
+        {expiresIn: "24h"}
+    );
+}
 
 function authUser(user, password) {
     let hash = generateHash(password, user.salt);

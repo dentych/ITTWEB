@@ -6,7 +6,7 @@ let morgan = require("morgan");
 let cors = require("cors");
 let ejwt = require("express-jwt");
 
-mongoose.connect("mongodb://localhost/fitnessapi");
+mongoose.connect("mongodb://192.168.99.100/fitnessapi");
 mongoose.Promise = global.Promise;
 
 let userSchema = require("./database/userSchema");

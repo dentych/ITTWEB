@@ -4,27 +4,6 @@ let exercises = require("./exercises.js");
 module.exports = function (programModel) {
     let router = express.Router();
 
-    router.post("/programs", function (req, res) {
-        let programName = req.body.programName;
-        let userId = req.user.userId;
-
-        var program = new programModel({title: programName, completed: 0, user: userId, exercises: []});
-
-        if (programName == undefined) {
-            res.status(400).json({msg: "I pitty the fool who doesnt remember to make a title!!!"});
-            return false;
-        }
-        program.save(function (err, program) {
-            if (err) {
-                console.log(err);
-                res.sendStatus(400);
-            } else {
-                console.log("Created Program: " + programName);
-                res.json({msg: "success", program: program});
-            }
-        });
-    });
-
     router.get("/programs", function (req, res) {
         programModel.find({user: req.user.userId}, "title completed exercises").exec(function (err, program) {
             if (err) {
@@ -65,6 +44,27 @@ module.exports = function (programModel) {
                     exercise.name = exerciseInfo.name;
                     exercise.desc = exerciseInfo.desc;
                 });
+                res.json({msg: "success", program: program});
+            }
+        });
+    });
+
+    router.post("/programs", function (req, res) {
+        let programName = req.body.programName;
+        let userId = req.user.userId;
+
+        var program = new programModel({title: programName, completed: 0, user: userId, exercises: []});
+
+        if (programName == undefined) {
+            res.status(400).json({msg: "I pitty the fool who doesnt remember to make a title!!!"});
+            return false;
+        }
+        program.save(function (err, program) {
+            if (err) {
+                console.log(err);
+                res.sendStatus(400);
+            } else {
+                console.log("Created Program: " + programName);
                 res.json({msg: "success", program: program});
             }
         });

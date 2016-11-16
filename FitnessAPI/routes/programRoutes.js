@@ -105,13 +105,7 @@ module.exports = function (programModel) {
     });
 
     // Exercise Requests *********************************************
-    // user : 582c6e36e90b55171c1b3ef0
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ODJjNmUzNmU5MGI1NTE3MWMxYjNlZjAiLCJlbWFpbCI6ImFuZHlAbWFpbC5jb20iLCJpYXQiOjE0NzkzMDY4MTcsImV4cCI6MTQ3OTM5MzIxN30.weFuXWRw-p1ScwQ16LDJbLP5vQGgFFdWvTqexCgfOLE
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ODJjNmUzNmU5MGI1NTE3MWMxYjNlZjAiLCJlbWFpbCI6ImFuZHlAbWFpbC5jb20iLCJpYXQiOjE0NzkzMDcwMzMsImV4cCI6MTQ3OTM5MzQzM30.4Pg9zQe1V_Y9-N4opPGoO8O30C4q7xs0OQ-CF547a6w
-
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ODJjN2RkMzY3ZGYzYTAxMjQ5ZWFjZDEiLCJlbWFpbCI6ImFhYUBtYWlsLmNvbSIsImlhdCI6MTQ3OTMxMDg2OSwiZXhwIjoxNDc5Mzk3MjY5fQ.zpvvPLPZHKmr3luusboX57dYUHyVQKbDdyYID5XR1FA
-
-
+   
     router.post("/programs/:id/exercises", function (req, res) {
         let received = req.body.chosenExercises;
         let id = req.params.id;

@@ -35,7 +35,7 @@ module.exports = function (programModel) {
                     res.json({title: "Program", program: {title: "Program not found"}});
                     return false;
                 }
-                if(program.exercises != undefined) {
+                if (program.exercises != undefined) {
                     program.exercises.forEach(function (exercise) {
                         let exerciseInfo = exercises[exercise.exerciseInfo];
                         exercise.name = exerciseInfo.name;
@@ -48,7 +48,10 @@ module.exports = function (programModel) {
     });
 
     router.get("/programs/:id", function (req, res) {
-        programModel.findOne({_id: req.params.id, user: req.user.userId}, "title completed exercises").exec(function (err, program) {
+        programModel.findOne({
+            _id: req.params.id,
+            user: req.user.userId
+        }, "title completed exercises").exec(function (err, program) {
             if (err) {
                 console.log(err);
                 res.sendStatus(400);
@@ -81,11 +84,11 @@ module.exports = function (programModel) {
                     console.log(err);
                 } else {
                     if (model == null) {
-                        res.send("No program to update");
-                        return false;
+                        res.json({msg: "No program to update"});
+                    } else {
+                        let completions = model.completed + 1;
+                        res.json({completed: completions});
                     }
-                    let newValue = model.completed + 1;
-                    res.send(newValue.toString());
                 }
             });
     });
@@ -99,7 +102,7 @@ module.exports = function (programModel) {
                 res.sendStatus(400);
             } else {
                 console.log(ret);
-                if(ret == null) {
+                if (ret == null) {
                     res.json({msg: "no program were harmed during this request"});
                     return false;
                 }
@@ -155,7 +158,7 @@ module.exports = function (programModel) {
                 console.log(err);
                 res.sendStatus(400);
             } else {
-                if(model == null) {
+                if (model == null) {
                     res.json({msg: "No exercises were added, you may not have permission"});
                     return false;
                 }
@@ -177,7 +180,7 @@ module.exports = function (programModel) {
                 console.log(err);
                 res.sendStatus(400);
             } else {
-                if(ret == null) {
+                if (ret == null) {
                     res.json({msg: "No exercise were harmed during this request, you may not have permissions"});
                     return false;
                 }

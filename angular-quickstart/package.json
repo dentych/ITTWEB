@@ -5,7 +5,8 @@
     "start": "tsc && node_modules/.bin/concurrently \"tsc -w\" \"node_modules/.bin/lite-server\" ",
     "lite": "lite-server",
     "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "tsc:w": "tsc -w",
+	"clean": "rm -rf ./app/js"
   },
   "licenses": [
     {

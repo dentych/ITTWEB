@@ -1,19 +1,6 @@
-import {Component} from "@angular/core";
-
-export class Hero {
-    id: number;
-    name: string;
-}
-
-const HEROES: Hero[] = [
-    {id: 13, name: "Andreas"},
-    {id: 14, name: "David"},
-    {id: 15, name: "Søren"},
-    {id: 16, name: "Steffen"},
-    {id: 17, name: "Jokke"},
-    {id: 18, name: "Tobias"},
-    {id: 19, name: "Benjamin"},
-];
+import {Component, OnInit} from "@angular/core";
+import {Hero} from "./hero";
+import {HeroService} from "./hero.service";
 
 @Component({
     selector: 'my-app',
@@ -21,10 +8,13 @@ const HEROES: Hero[] = [
         <h1>{{title}}</h1>
         <h2>My heroes</h2>
         <ul class="heroes">
-            <li *ngFor="let hero of heroes">
+            <li *ngFor="let hero of heroes" 
+                (click)="onSelect(hero)"
+                [class.selected]="hero === selectedHero">
                 <span class="badge">{{hero.id}}</span> {{hero.name}}
             </li>
         </ul>
+        <my-hero-detail [hero]="selectedHero"></my-hero-detail>
     `,
     styles: [`
         .selected {
@@ -74,13 +64,29 @@ const HEROES: Hero[] = [
             margin-right: .8em;
             border-radius: 4px 0 0 4px;
         }
-    `]
+    `],
+    providers: [HeroService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = "Tour of Heroes";
     hero: Hero = {
         id: 1,
         name: "Windstorm"
     };
-    heroes = HEROES;
+    heroes: Hero[];
+    selectedHero: Hero;
+    constructor(private heroService: HeroService) {
+    }
+
+    ngOnInit(): void {
+        this.getHeroes();
+    }
+
+    onSelect(hero: Hero): void {
+        this.selectedHero = hero;
+    }
+
+    getHeroes(): void {
+        this.heroes = this.heroService.getHeroes();
+    }
 }

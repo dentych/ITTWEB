@@ -2,17 +2,11 @@
   "name": "angular-quickstart",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "start": "node_modules/.bin/tsc && node_modules/.bin/concurrently \"node_modules/.bin/tsc -w\" \"node_modules/.bin/lite-server\" ",
     "lite": "lite-server",
     "tsc": "tsc",
     "tsc:w": "tsc -w"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/angular/angular.io/blob/master/LICENSE"
-    }
-  ],
   "dependencies": {
     "@angular/common": "~2.2.0",
     "@angular/compiler": "~2.2.0",

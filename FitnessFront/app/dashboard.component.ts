@@ -24,14 +24,12 @@ export class DashboardComponent implements OnInit {
 
     seeProgram(index: string): void {
         this.router.navigate(["/program/", index]);
-        console.log("Going to program: " + index);
     }
 
-    deleteProgram(index: Program) {
-        var answer = confirm("You damn sure u gon delete dis program?");
+    deleteProgram(index: Program): void {
+        let answer = confirm("You damn sure u gon delete dis program?");
         if(answer) {
             this.programService.deleteProgram(index._id);
-            console.log("I deleted Stuff: " + index);
             let programToRemove = this.programs.indexOf(index);
             this.programs.splice(programToRemove,1);
         }

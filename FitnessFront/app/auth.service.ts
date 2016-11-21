@@ -22,6 +22,11 @@ export class AuthService {
             });
     }
 
+    logout(): void {
+        localStorage.removeItem("token");
+        this.authGuard.loggedIn = false;
+    }
+
     register(email: string, password: string): Promise<any> {
         return this.http.post(this.baseUrl + "/register", JSON.stringify({
             email: email,

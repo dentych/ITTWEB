@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http} from "@angular/http";
-
+import {Headers, Http, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/toPromise";
+import {Program} from "./program";
 
 @Injectable()
 export class ProgramService {
@@ -13,9 +13,15 @@ export class ProgramService {
     }
 
     getPrograms(): Promise<Program[]> {
-        return this.http.get(this.programUrl)
+        let authToken = localStorage.getItem("token");
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + authToken
+        });
+        let options = new RequestOptions({headers: headers});
+        return this.http.get(this.programUrl, options)
             .toPromise()
-            .then(response => response.json().data as Program[])
+            .then(response => response.json().program as Program[])
             .catch(this.handleError);
     }
 

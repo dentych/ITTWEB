@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
+
 import {ProgramService} from "./program.service";
+import {Program} from "./program";
 
 @Component({
     selector: "my-app",
@@ -13,7 +15,11 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.programService.getPrograms().then(programs => this.programs = programs);
+        this.programService.getPrograms().then(programs => {
+            console.log("PROGRAMS!");
+            console.log(programs);
+            this.programs = programs;
+        });
     }
 
 }

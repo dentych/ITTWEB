@@ -13,6 +13,7 @@ import {AuthService} from "./auth.service";
 import {RegisterComponent} from "./register.component";
 import {NavbarComponent} from "./navbar.component";
 import {LogoutComponent} from "./logout.component";
+import {ProgramsComponent} from "./program.component";
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import {LogoutComponent} from "./logout.component";
         DashboardComponent,
         LoginComponent,
         LogoutComponent,
-        RegisterComponent
+        RegisterComponent,
+        ProgramsComponent
     ],
     providers: [ProgramService, AuthGuardService, AuthService],
     bootstrap: [AppComponent]

@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3 well well-lg">
+        <div *ngIf="program">
+            <h3>Program title: {{program.title}}</h3>
+            <h4>Times completed: {{program.completed}}</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>exerciseInfoId</th>
+                    <th>Reps</th>
+                    <th>Sets</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let exercise of program.exercises">
+                    <td>{{exercise.exerciseInfo}}</td>
+                    <td>{{exercise.sets}}</td>
+                    <td>{{exercise.reps}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a class="pointer" (click)="seeProgram(program._id)"><i class="material-icons">info_outline</i></a>
+            <button (click)="completeProgram()">Complete Program</button>
+        </div>
+    </div>
+</div>

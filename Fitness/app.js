@@ -10,7 +10,7 @@ let favicon = require("serve-favicon");
 
 // Setup
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/fitnesshelper");
+mongoose.connect("mongodb://192.168.99.100/fitnesshelper");
 let db = mongoose.connection;
 db.on("error", function (err) {
     console.log("DB connection failed: " + err.message);

@@ -4,6 +4,7 @@ import {AuthGuardService} from "./auth-guard.service";
 import {LoginComponent} from "./login.component";
 import {RegisterComponent} from "./register.component";
 import {LogoutComponent} from "./logout.component";
+import {ProgramsComponent} from "./program.component"
 
 export const ROUTES: Routes = [
     {
@@ -18,7 +19,11 @@ export const ROUTES: Routes = [
             {
                 path: "dashboard",
                 component: DashboardComponent,
-            }
+            },
+            {
+                path: "programs/:id",
+                component: ProgramsComponent
+            },
         ]
     },
     {

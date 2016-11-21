@@ -38,8 +38,25 @@ export class ProgramService {
             .catch(this.handleError);
     }
 
+    getProgram(id: string): Promise<Program> {
+        let authToken = localStorage.getItem("token");
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + authToken
+        });
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.get(this.programUrl + "/" + id, options)
+            .toPromise()
+            .then(response => response.json().program as Program);
+    }
+
     private handleError(error: any): Promise<any> {
         console.error("An error occurred", error);
         return Promise.reject(error.message || error);
+    }
+
+    completeProgram(_id: string): void {
+        // KALD COMPLETE API
     }
 }

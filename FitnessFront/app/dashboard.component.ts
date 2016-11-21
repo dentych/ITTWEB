@@ -4,7 +4,6 @@ import {ProgramService} from "./program.service";
 import {Program} from "./program";
 
 @Component({
-    selector: "my-app",
     templateUrl: "app/html/dashboard.html"
 })
 export class DashboardComponent implements OnInit {
@@ -16,8 +15,6 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.programService.getPrograms().then(programs => {
-            console.log("PROGRAMS!");
-            console.log(programs);
             this.programs = programs;
         });
     }

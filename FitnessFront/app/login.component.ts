@@ -1,6 +1,7 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
+import {AuthGuardService} from "./auth-guard.service";
 
 class Msg {
     constructor(public msg) {
@@ -9,17 +10,22 @@ class Msg {
 }
 
 @Component({
-    selector: "my-app",
     templateUrl: "app/html/login.html"
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     loggingIn: boolean = false;
     email: string;
     password: string;
     error: boolean;
     errormsg: string;
 
-    constructor(private router: Router, private authService: AuthService) {
+    constructor(private router: Router, private authService: AuthService, private authGuard: AuthGuardService) {
+    }
+
+    ngOnInit(): void {
+        if (this.authGuard.loggedIn) {
+            this.router.navigate(["/dashboard"]);
+        }
     }
 
     submitForm(): void {

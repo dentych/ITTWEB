@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
 
 @Component({
-    selector: "my-app",
     templateUrl: "app/html/register.html"
 })
 export class RegisterComponent {

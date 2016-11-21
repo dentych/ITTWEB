@@ -2,9 +2,25 @@
     <div class="col-xs-12">
         <h2>Programs</h2>
         <ul *ngIf="programs">
-            <li *ngFor="let program of programs">
-                {{program._id}}
-            </li>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Completed</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let program of programs">
+                        <td>{{program.title}}</td>
+                        <td>{{program.completed}}</td>
+                        <td>
+                            <a class="pointer" (click)="seeProgram(program._id)"><i class="material-icons">info_outline</i></a>
+                            <a class="pointer" (click)="deleteProgram(program)"><i class="material-icons">delete_forever</i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </ul>
     </div>
 </div>

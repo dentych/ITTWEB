@@ -21,6 +21,9 @@ export class RegisterComponent {
             this.error = false;
             this.authService.register(email, password).then(response => {
                 let token = response.json().token as string;
+            }, reason => {
+                this.errormessage = reason.json().msg;
+                this.error = true;
             });
         }
     }

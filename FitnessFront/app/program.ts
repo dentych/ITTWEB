@@ -1,5 +1,9 @@
 export class Exercise {
-    
+    constructor(title: string,
+                description: string,
+                sets: number,
+                reps: number) {
+    }
 }
 
 export class Program {

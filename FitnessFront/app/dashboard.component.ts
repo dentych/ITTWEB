@@ -31,5 +31,4 @@ export class DashboardComponent implements OnInit {
             this.programs.splice(programToRemove,1);
         }
     }
-
 }

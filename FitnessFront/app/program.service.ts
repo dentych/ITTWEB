@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/toPromise";
-import {Program} from "./program";
+import {Program, Exercise} from "./program";
+import {EXERCISES} from "./exercises";
 
 @Injectable()
 export class ProgramService {
@@ -48,7 +49,18 @@ export class ProgramService {
 
         return this.http.get(this.programUrl + "/" + id, options)
             .toPromise()
-            .then(response => response.json().program as Program);
+            .then(response => {
+                let program = response.json().program;
+                if (program.exercises) {
+                    program.exercises.forEach(exercise => {
+                        let info = EXERCISES[exercise.exerciseInfo];
+                        exercise.title = info.title;
+                        exercise.description = info.description;
+                    })
+                }
+
+                return program as Program;
+            });
     }
 
     private handleError(error: any): Promise<any> {

@@ -65,4 +65,13 @@ export class ProgramService {
 
         return new RequestOptions({headers: headers});
     }
+
+    deleteExercise(programId: string, exerciseId: string): Promise<string> {
+        let urlProgramId = "/" + programId;
+        let urlExerciseId = "/" + exerciseId;
+
+        return this.http.delete(this.programUrl + urlProgramId + "/exercises" + urlExerciseId, this.getOptions())
+            .toPromise()
+            .then(response => response.json().msg)
+    }
 }

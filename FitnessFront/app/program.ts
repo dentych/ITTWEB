@@ -1,8 +1,9 @@
 export class Exercise {
-    constructor(title: string,
-                description: string,
-                sets: number,
-                reps: number) {
+    constructor(public _id: string,
+                public title: string,
+                public description: string,
+                public sets: number,
+                public reps: number) {
     }
 }
 

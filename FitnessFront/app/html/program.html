@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3 well well-lg">
+    <div class="col-xs-12 col-md-8 well well-lg">
         <div *ngIf="!program">Loading...</div>
         <div *ngIf="program">
             <h3>Program title: {{program.title}}</h3>
@@ -11,6 +11,7 @@
                     <th>Description</th>
                     <th>Reps</th>
                     <th>Sets</th>
+                    <th>Remove</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -19,10 +20,15 @@
                     <td>{{exercise.description}}</td>
                     <td>{{exercise.sets}}</td>
                     <td>{{exercise.reps}}</td>
+                    <td class="text-center"><a class="pointer" (click)="removeExercise(exercise)"><i class="material-icons">delete</i></a></td>
                 </tr>
                 </tbody>
             </table>
             <button (click)="completeProgram()" class="btn btn-default">Complete Program</button>
         </div>
+    </div>
+
+    <div class="col-xs-12 col-md-3 col-md-offset-1 well well-lg">
+        <button class="btn btn-primary btn-block" routerLink="./add-exercise">Add exercise</button>
     </div>
 </div>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {Program} from "./program";
+import {Program, Exercise} from "./program";
 import {ProgramService} from "./program.service";
 import {ActivatedRoute, Params} from "@angular/router";
 
@@ -25,6 +25,13 @@ export class ProgramsComponent implements OnInit {
         if (this.program) {
             this.programService.completeProgram(this.program._id).then(completed => this.program.completed = completed);
         }
+    }
 
+    removeExercise(exercise: Exercise): void {
+        this.programService.deleteExercise(this.program._id, exercise._id)
+            .then(response => {
+                let index = this.program.exercises.indexOf(exercise);
+                this.program.exercises.splice(index, 1);
+            }).catch(reason => alert("Error while deleting exercise"));
     }
 }

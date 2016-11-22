@@ -50,16 +50,7 @@ export class ProgramService {
     }
 
     completeProgram(id: string): Promise<number> {
-        console.log("API called");
-        let authToken = localStorage.getItem("token");
-        let headers = new Headers({
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + authToken
-        });
-        console.log("Authorization: " + "Bearer " + authToken)
-        let options = new RequestOptions({headers: headers});
-       //noinspection TypeScriptValidateTypes
-        return this.http.post(this.programUrl + "/" + id + "/complete" , {}, options)
+        return this.http.post(this.programUrl + "/" + id + "/complete", {}, this.getOptions())
             .toPromise()
             .then(response => response.json().completed)
             .catch(this.handleError);

@@ -49,8 +49,20 @@ export class ProgramService {
         return Promise.reject(error.message || error);
     }
 
-    completeProgram(_id: string): void {
-        // KALD COMPLETE API
+    completeProgram(id: string): Promise<number> {
+        console.log("API called");
+        let authToken = localStorage.getItem("token");
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + authToken
+        });
+        console.log("Authorization: " + "Bearer " + authToken)
+        let options = new RequestOptions({headers: headers});
+       //noinspection TypeScriptValidateTypes
+        return this.http.post(this.programUrl + "/" + id + "/complete" , {}, options)
+            .toPromise()
+            .then(response => response.json().completed)
+            .catch(this.handleError);
     }
 
     private getOptions(): RequestOptions {

@@ -23,7 +23,8 @@ export class ProgramsComponent implements OnInit {
 
     completeProgram(): void {
         if (this.program) {
-            this.programService.completeProgram(this.program._id);
+            this.programService.completeProgram(this.program._id).then(completed => this.program.completed = completed);
         }
+
     }
 }

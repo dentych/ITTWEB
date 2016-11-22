@@ -17,7 +17,6 @@ export class ProgramsComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.switchMap((params: Params) => {
-            console.log(params["id"]);
             return this.programService.getProgram(params["id"]);
         }).subscribe(program => this.program = program);
     }

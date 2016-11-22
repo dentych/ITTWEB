@@ -19,8 +19,8 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    seeProgram(index: string): void {
-        this.router.navigate(["/program/", index]);
+    showProgram(id: string): void {
+        this.router.navigate(["/programs", id]);
     }
 
     deleteProgram(index: Program): void {

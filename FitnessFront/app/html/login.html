@@ -13,8 +13,8 @@
                        required [(ngModel)]="password" [disabled]="loggingIn">
             </div>
             <div class="pull-right">
-                <button class="btn btn-default" type="button" routerLink="/register">Register user</button>
-                <button class="btn btn-primary" type="submit">Log in</button>
+                <button class="btn btn-default" type="button" routerLink="/register" [disabled]="loggingIn">Register user</button>
+                <button class="btn btn-primary" type="submit" [disabled]="loggingIn">Log in</button>
             </div>
         </form>
         <div class="text-danger" *ngIf="error">{{errormsg}}</div>

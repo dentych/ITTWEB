@@ -23,7 +23,7 @@ export const ROUTES: Routes = [
             {
                 path: "programs/:id",
                 component: ProgramsComponent
-            },
+            }
         ]
     },
     {

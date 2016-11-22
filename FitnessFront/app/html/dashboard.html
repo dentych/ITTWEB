@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-xs-12">
         <h2>Programs</h2>
+        <div *ngIf="!programs">Loading...</div>
         <ul *ngIf="programs">
             <table class="table">
                 <thead>

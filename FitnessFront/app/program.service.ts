@@ -14,40 +14,21 @@ export class ProgramService {
     }
 
     getPrograms(): Promise<Program[]> {
-        let authToken = localStorage.getItem("token");
-        let headers = new Headers({
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + authToken
-        });
-        let options = new RequestOptions({headers: headers});
-        return this.http.get(this.programUrl, options)
+        return this.http.get(this.programUrl, this.getOptions())
             .toPromise()
             .then(response => response.json().program as Program[])
             .catch(this.handleError);
     }
 
     deleteProgram(id: string): Promise<boolean> {
-        let authToken = localStorage.getItem("token");
-        let headers = new Headers({
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + authToken
-        });
-        let options = new RequestOptions({headers: headers});
-        return this.http.delete(this.programUrl + "/" + id, options)
+        return this.http.delete(this.programUrl + "/" + id, this.getOptions())
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
     }
 
     getProgram(id: string): Promise<Program> {
-        let authToken = localStorage.getItem("token");
-        let headers = new Headers({
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + authToken
-        });
-        let options = new RequestOptions({headers: headers});
-
-        return this.http.get(this.programUrl + "/" + id, options)
+        return this.http.get(this.programUrl + "/" + id, this.getOptions())
             .toPromise()
             .then(response => {
                 let program = response.json().program;
@@ -70,5 +51,15 @@ export class ProgramService {
 
     completeProgram(_id: string): void {
         // KALD COMPLETE API
+    }
+
+    private getOptions(): RequestOptions {
+        let authToken = localStorage.getItem("token");
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + authToken
+        });
+
+        return new RequestOptions({headers: headers});
     }
 }

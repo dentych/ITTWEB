@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import {Program} from "./program";
+import {Body} from "@angular/http/src/body";
 
 @Injectable()
 export class ProgramService {
@@ -22,6 +23,20 @@ export class ProgramService {
         return this.http.get(this.programUrl, options)
             .toPromise()
             .then(response => response.json().program as Program[])
+            .catch(this.handleError);
+    }
+
+    createProgram(programName: string): Promise<Program> {
+        let authToken = localStorage.getItem("token");
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + authToken
+        });
+        let body = {programName: programName};
+        let options = new RequestOptions({headers: headers});
+        return this.http.post(this.programUrl, body, options)
+            .toPromise()
+            .then(response => response.json().program as Program)
             .catch(this.handleError);
     }
 

@@ -16,3 +16,6 @@ A script has been provided to start the app on Windows.
 ## Technologies
 The app is written in TypeScript with Angular 2 as the MVC framework.
 In dev mode, we're currently using lite-server, but will most likely switch it out with another webserver.
+
+## Live version
+A live version can be found on [Heroku](https://fitnessfront.herokuapp.com)

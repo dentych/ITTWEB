@@ -20,6 +20,20 @@ export class ProgramService {
             .catch(this.handleError);
     }
 
+    createProgram(programName: string): Promise<Program> {
+        let authToken = localStorage.getItem("token");
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + authToken
+        });
+        let body = {programName: programName};
+        let options = new RequestOptions({headers: headers});
+        return this.http.post(this.programUrl, body, options)
+            .toPromise()
+            .then(response => response.json().program as Program)
+            .catch(this.handleError);
+    }
+
     deleteProgram(id: string): Promise<boolean> {
         return this.http.delete(this.programUrl + "/" + id, this.getOptions())
             .toPromise()

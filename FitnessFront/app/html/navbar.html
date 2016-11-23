@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a routerLink="/dashboard">Dashboard</a></li>
-                <li><a>Create program</a></li>
+                <li><a class="pointer" (click)="createProgram()">Create program</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a routerLink="/login" *ngIf="!authGuard.loggedIn">Login</a></li>

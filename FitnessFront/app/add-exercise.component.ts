@@ -43,7 +43,7 @@ export class AddExerciseComponent implements OnInit {
         return this.selectedItem && this.sets && this.reps;
     }
 
-    private addExercise(programId: any) {
+    private addExercise(programId: string) {
         this.programService.addExercise(programId, this.selectedItem, this.sets, this.reps)
             .then(() => {
                 this.goBack();

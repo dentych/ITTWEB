@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import {Program} from "./program";
-import {Body} from "@angular/http/src/body";
 
 @Injectable()
 export class ProgramService {

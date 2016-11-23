@@ -1,4 +1,5 @@
 <div class="col-xs-12 well well-lg">
+    <button class="btn btn-default btn-sm pull-right" (click)="goBack()"><i class="material-icons">clear</i></button>
     <h2>Add exercise to program</h2>
     <br>
     <table class="table">
@@ -22,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="reps">Reps</label>
-            <input type="number" class="form-control" id="reps" placeholder="Reps" name="reps" [(ngModel)]="reps">
+            <input type="text" class="form-control" id="reps" placeholder="Reps" name="reps" [(ngModel)]="reps">
         </div>
         <button type="submit" class="btn btn-primary">Add exercise</button>
     </form>

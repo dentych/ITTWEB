@@ -12,7 +12,7 @@ export class AddExerciseComponent implements OnInit {
     exercises: ExerciseInfo[] = EXERCISES;
     selectedItem: ExerciseInfo;
     sets: number;
-    reps: number;
+    reps: string;
     errorMsg: string;
     programId: any;
 
@@ -35,6 +35,10 @@ export class AddExerciseComponent implements OnInit {
         return;
     }
 
+    goBack(): void {
+        this.router.navigate(["../"], {relativeTo: this.route});
+    }
+
     private validateForm() {
         return this.selectedItem && this.sets && this.reps;
     }
@@ -42,7 +46,7 @@ export class AddExerciseComponent implements OnInit {
     private addExercise(programId: any) {
         this.programService.addExercise(programId, this.selectedItem, this.sets, this.reps)
             .then(() => {
-                this.router.navigate(["../"], {relativeTo: this.route});
+                this.goBack();
             }).catch(error => this.errorMsg = "An error occurred while adding exercise.");
     }
 }

@@ -65,7 +65,7 @@ export class ProgramService {
             .catch(this.handleError);
     }
 
-    addExercise(programId: string, info: ExerciseInfo, sets: number, reps: number): Promise<JSON> {
+    addExercise(programId: string, info: ExerciseInfo, sets: number, reps: string): Promise<JSON> {
         let url = this.programUrl + "/" + programId + "/exercises";
         let chosenExercise = {
             id: info.id,

@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/toPromise";
-import {Program, Exercise} from "./program";
-import {EXERCISES} from "./exercises";
+import {Program} from "./program";
+import {EXERCISES, ExerciseInfo} from "./exercises";
 
 @Injectable()
 export class ProgramService {
@@ -58,16 +58,37 @@ export class ProgramService {
             });
     }
 
-    private handleError(error: any): Promise<any> {
-        console.error("An error occurred", error);
-        return Promise.reject(error.message || error);
-    }
-
     completeProgram(id: string): Promise<number> {
         return this.http.post(this.programUrl + "/" + id + "/complete", {}, this.getOptions())
             .toPromise()
             .then(response => response.json().completed)
             .catch(this.handleError);
+    }
+
+    addExercise(programId: string, info: ExerciseInfo, sets: number, reps: number): Promise<JSON> {
+        let url = this.programUrl + "/" + programId + "/exercises";
+        let chosenExercise = {
+            id: info.id,
+            sets: sets,
+            reps: reps
+        };
+        return this.http.post(url, JSON.stringify({chosenExercises: [chosenExercise]}), this.getOptions())
+            .toPromise()
+            .then(response => response.json());
+    }
+
+    deleteExercise(programId: string, exerciseId: string): Promise<string> {
+        let urlProgramId = "/" + programId;
+        let urlExerciseId = "/" + exerciseId;
+
+        return this.http.delete(this.programUrl + urlProgramId + "/exercises" + urlExerciseId, this.getOptions())
+            .toPromise()
+            .then(response => response.json().msg)
+    }
+
+    private handleError(error: any): Promise<any> {
+        console.error("An error occurred", error);
+        return Promise.reject(error.message || error);
     }
 
     private getOptions(): RequestOptions {
@@ -78,14 +99,5 @@ export class ProgramService {
         });
 
         return new RequestOptions({headers: headers});
-    }
-
-    deleteExercise(programId: string, exerciseId: string): Promise<string> {
-        let urlProgramId = "/" + programId;
-        let urlExerciseId = "/" + exerciseId;
-
-        return this.http.delete(this.programUrl + urlProgramId + "/exercises" + urlExerciseId, this.getOptions())
-            .toPromise()
-            .then(response => response.json().msg)
     }
 }

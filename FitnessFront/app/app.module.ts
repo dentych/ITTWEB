@@ -14,6 +14,7 @@ import {RegisterComponent} from "./register.component";
 import {NavbarComponent} from "./navbar.component";
 import {LogoutComponent} from "./logout.component";
 import {ProgramsComponent} from "./program.component";
+import {AddExerciseComponent} from "./add-exercise.component";
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import {ProgramsComponent} from "./program.component";
         LoginComponent,
         LogoutComponent,
         RegisterComponent,
-        ProgramsComponent
+        ProgramsComponent,
+        AddExerciseComponent
     ],
     providers: [ProgramService, AuthGuardService, AuthService],
     bootstrap: [AppComponent]

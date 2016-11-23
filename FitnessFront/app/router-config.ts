@@ -5,6 +5,7 @@ import {LoginComponent} from "./login.component";
 import {RegisterComponent} from "./register.component";
 import {LogoutComponent} from "./logout.component";
 import {ProgramsComponent} from "./program.component"
+import {AddExerciseComponent} from "./add-exercise.component";
 
 export const ROUTES: Routes = [
     {
@@ -26,7 +27,7 @@ export const ROUTES: Routes = [
             },
             {
                 path: "programs/:id/add-exercise",
-                component: ProgramsComponent
+                component: AddExerciseComponent
             }
         ]
     },

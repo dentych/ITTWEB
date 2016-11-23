@@ -1,0 +1,30 @@
+<div class="col-xs-12 well well-lg">
+    <h2>Add exercise to program</h2>
+    <br>
+    <table class="table">
+        <tr>
+            <th>X</th>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        <tr *ngFor="let info of exercises" (click)="selectedItem = info" class="pointer">
+            <td>
+                <input type="radio" name="exercise" [checked]="info === selectedItem">
+            </td>
+            <td>{{info.title}}</td>
+            <td>{{info.description}}</td>
+        </tr>
+    </table>
+    <form class="form-inline" (ngSubmit)="submitForm()">
+        <div class="form-group">
+            <label for="sets">Sets</label>
+            <input type="number" class="form-control" id="sets" placeholder="Sets" name="sets" [(ngModel)]="sets">
+        </div>
+        <div class="form-group">
+            <label for="reps">Reps</label>
+            <input type="number" class="form-control" id="reps" placeholder="Reps" name="reps" [(ngModel)]="reps">
+        </div>
+        <button type="submit" class="btn btn-primary">Add exercise</button>
+    </form>
+    <div *ngIf="errorMsg" class="text-danger">{{errorMsg}}</div>
+</div>

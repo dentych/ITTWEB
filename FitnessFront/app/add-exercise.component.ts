@@ -14,10 +14,10 @@ export class AddExerciseComponent implements OnInit {
     sets: number;
     reps: string;
     errorMsg: string;
-    programId: any;
+    programId: string;
 
     ngOnInit(): void {
-        this.route.params.subscribe(params => this.programId = params["id"]);
+        this.route.params.subscribe(params => this.programId = params["id"] as string);
     }
 
     constructor(private programService: ProgramService, private route: ActivatedRoute, private router: Router) {

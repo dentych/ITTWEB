@@ -60,7 +60,8 @@ namespace WebApplication
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
+//            if (env.IsDevelopment())
+            if (true)
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();

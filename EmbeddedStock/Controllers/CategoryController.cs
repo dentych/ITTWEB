@@ -74,6 +74,24 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Update(int id)
+        {
+            var model = findCategoryById(id);
+            return View(model);
+        }
+
+        [ActionName("Update")]
+        [HttpPost]
+        public IActionResult Update(int id, string categoryName)
+        {
+            var model = findCategoryById(id);
+            model.Name = categoryName;
+            context.Categories.Update(model);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         private Category findCategoryById(int id, bool includeTypes = false)
         {
             if (includeTypes)

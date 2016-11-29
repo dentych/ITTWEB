@@ -4,10 +4,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmbeddedStock.Migrations
 {
-    public partial class MyFirst : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "EsImages",
                 columns: table => new
@@ -30,7 +43,6 @@ namespace EmbeddedStock.Migrations
                     ComponentTypeId = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     AdminComment = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: true),
                     ComponentInfo = table.Column<string>(nullable: true),
                     ComponentName = table.Column<string>(nullable: true),
                     Datasheet = table.Column<string>(nullable: true),
@@ -53,23 +65,27 @@ namespace EmbeddedStock.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "CategoryComponentType",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ComponentTypeId = table.Column<long>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    CategoryId = table.Column<int>(nullable: false),
+                    ComponentTypeId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.PrimaryKey("PK_CategoryComponentType", x => new { x.CategoryId, x.ComponentTypeId });
                     table.ForeignKey(
-                        name: "FK_Categories_ComponentTypes_ComponentTypeId",
+                        name: "FK_CategoryComponentType_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryComponentType_ComponentTypes_ComponentTypeId",
                         column: x => x.ComponentTypeId,
                         principalTable: "ComponentTypes",
                         principalColumn: "ComponentTypeId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,8 +114,8 @@ namespace EmbeddedStock.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_ComponentTypeId",
-                table: "Categories",
+                name: "IX_CategoryComponentType_ComponentTypeId",
+                table: "CategoryComponentType",
                 column: "ComponentTypeId");
 
             migrationBuilder.CreateIndex(
@@ -108,38 +124,24 @@ namespace EmbeddedStock.Migrations
                 column: "ComponentTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ComponentTypes_CategoryId",
-                table: "ComponentTypes",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ComponentTypes_ImageESImageId",
                 table: "ComponentTypes",
                 column: "ImageESImageId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ComponentTypes_Categories_CategoryId",
-                table: "ComponentTypes",
-                column: "CategoryId",
-                principalTable: "Categories",
-                principalColumn: "CategoryId",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Categories_ComponentTypes_ComponentTypeId",
-                table: "Categories");
+            migrationBuilder.DropTable(
+                name: "CategoryComponentType");
 
             migrationBuilder.DropTable(
                 name: "Components");
 
             migrationBuilder.DropTable(
-                name: "ComponentTypes");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ComponentTypes");
 
             migrationBuilder.DropTable(
                 name: "EsImages");

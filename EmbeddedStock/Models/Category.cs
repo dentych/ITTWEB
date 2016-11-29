@@ -6,11 +6,11 @@ namespace WebApplication.Models
     {
         public Category()
         {
-            ComponentTypes = new List<ComponentType>();
+            CategoryComponentTypes = new List<CategoryComponentType>();
         }
 
         public int CategoryId { get; set; }
         public string Name { get; set; }
-        public ICollection<ComponentType> ComponentTypes { get; protected set; }
+        public ICollection<CategoryComponentType> CategoryComponentTypes { get; protected set; }
     }
 }

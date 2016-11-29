@@ -20,7 +20,7 @@ namespace WebApplication.Controllers
 
         public IActionResult Index()
         {
-            var categories = context.Categories.Include(c => c.ComponentTypes).ToList();
+            var categories = context.Categories.Include(c => c.CategoryComponentTypes).ToList();
             return View(categories);
         }
 
@@ -52,7 +52,7 @@ namespace WebApplication.Controllers
 
         public IActionResult Show(int id)
         {
-            var category = context.Categories.Single(c => c.CategoryId == id);
+            var category = findCategoryById(id, true);
 
             return View(category);
         }
@@ -74,9 +74,16 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        private Category findCategoryById(int id)
+        private Category findCategoryById(int id, bool includeTypes = false)
         {
-            return context.Categories.Single(c => c.CategoryId == id);
+            if (includeTypes)
+            {
+                return context.Categories.Include(c => c.CategoryComponentTypes).Single(c => c.CategoryId == id);
+            }
+            else
+            {
+                return context.Categories.Single(c => c.CategoryId == id);
+            }
         }
     }
 }

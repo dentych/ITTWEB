@@ -21,15 +21,24 @@ namespace EmbeddedStock.Migrations
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long?>("ComponentTypeId");
-
                     b.Property<string>("Name");
 
                     b.HasKey("CategoryId");
 
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("WebApplication.Models.CategoryComponentType", b =>
+                {
+                    b.Property<int>("CategoryId");
+
+                    b.Property<long>("ComponentTypeId");
+
+                    b.HasKey("CategoryId", "ComponentTypeId");
+
                     b.HasIndex("ComponentTypeId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("CategoryComponentType");
                 });
 
             modelBuilder.Entity("WebApplication.Models.Component", b =>
@@ -65,8 +74,6 @@ namespace EmbeddedStock.Migrations
 
                     b.Property<string>("AdminComment");
 
-                    b.Property<int?>("CategoryId");
-
                     b.Property<string>("ComponentInfo");
 
                     b.Property<string>("ComponentName");
@@ -86,8 +93,6 @@ namespace EmbeddedStock.Migrations
                     b.Property<string>("WikiLink");
 
                     b.HasKey("ComponentTypeId");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ImageESImageId");
 
@@ -111,11 +116,17 @@ namespace EmbeddedStock.Migrations
                     b.ToTable("EsImages");
                 });
 
-            modelBuilder.Entity("WebApplication.Models.Category", b =>
+            modelBuilder.Entity("WebApplication.Models.CategoryComponentType", b =>
                 {
-                    b.HasOne("WebApplication.Models.ComponentType")
-                        .WithMany("Categories")
-                        .HasForeignKey("ComponentTypeId");
+                    b.HasOne("WebApplication.Models.Category", "Category")
+                        .WithMany("CategoryComponentTypes")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WebApplication.Models.ComponentType", "ComponentType")
+                        .WithMany("CategoryComponentTypes")
+                        .HasForeignKey("ComponentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("WebApplication.Models.Component", b =>
@@ -128,10 +139,6 @@ namespace EmbeddedStock.Migrations
 
             modelBuilder.Entity("WebApplication.Models.ComponentType", b =>
                 {
-                    b.HasOne("WebApplication.Models.Category")
-                        .WithMany("ComponentTypes")
-                        .HasForeignKey("CategoryId");
-
                     b.HasOne("WebApplication.Models.ESImage", "Image")
                         .WithMany()
                         .HasForeignKey("ImageESImageId");

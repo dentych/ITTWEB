@@ -19,7 +19,7 @@
           <tr>
             <td>@category.CategoryId</td>
             <td>@category.Name</td>
-            <td>0</td>
+            <td>@category.CategoryComponentTypes.Count</td>
             <td>
               <a asp-action="Show" asp-route-id="@category.CategoryId">Show</a>
               &nbsp;<a asp-action="Update" asp-route-id="@category.CategoryId">Edit</a>

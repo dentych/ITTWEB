@@ -40,11 +40,14 @@ namespace WebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<UserDbContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("UserConnection")));
+
+            services.AddDbContext<ComponentDbContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<UserDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
@@ -60,7 +63,8 @@ namespace WebApplication
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
+//            if (env.IsDevelopment())
+            if (true)
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();

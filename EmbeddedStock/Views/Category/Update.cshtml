@@ -1,0 +1,17 @@
+﻿@model Category
+@{
+    ViewData["title"] = "Updating category";
+}
+
+<h2>Update category name</h2>
+<form asp-controller="Category" asp-action="Update" method="post">
+  <div class="form-group">
+    <label for="categoryName">Category name:</label>
+    <input type="text" class="form-control" name="categoryName" id="categoryName" value="@Model.Name"/>
+  </div>
+  @if (ViewData["error"] != null)
+  {
+      <span class="text-danger">@ViewData["error"]</span><br><br>
+  }
+  <button type="submit">Update</button>
+</form>

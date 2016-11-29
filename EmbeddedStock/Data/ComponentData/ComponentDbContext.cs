@@ -11,12 +11,21 @@ namespace WebApplication.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-//            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Category>()
-                .HasMany(c => c.ComponentTypes);
+            modelBuilder.Entity<CategoryComponentType>().HasKey(cct => new
+            {
+                cct.CategoryId,
+                cct.ComponentTypeId
+            });
 
-            modelBuilder.Entity<ComponentType>()
-                .HasMany(ct => ct.Categories);
+            modelBuilder.Entity<CategoryComponentType>()
+                .HasOne(cct => cct.Category)
+                .WithMany(c => c.CategoryComponentTypes)
+                .HasForeignKey(cct => cct.CategoryId);
+
+            modelBuilder.Entity<CategoryComponentType>()
+                .HasOne(cct => cct.ComponentType)
+                .WithMany(ct => ct.CategoryComponentTypes)
+                .HasForeignKey(cct => cct.ComponentTypeId);
         }
 
         public DbSet<Category> Categories { get; set; }

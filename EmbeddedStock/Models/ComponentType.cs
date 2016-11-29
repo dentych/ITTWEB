@@ -7,7 +7,7 @@ namespace WebApplication.Models
         public ComponentType()
         {
             Components = new List<Component>();
-            Categories = new List<Category>();
+            CategoryComponentTypes = new List<CategoryComponentType>();
         }
 
         public long ComponentTypeId { get; set; }
@@ -22,6 +22,6 @@ namespace WebApplication.Models
         public string AdminComment { get; set; }
         public virtual ESImage Image { get; set; }
         public ICollection<Component> Components { get; protected set; }
-        public ICollection<Category> Categories { get; protected set; }
+        public ICollection<CategoryComponentType> CategoryComponentTypes { get; protected set; }
     }
 }

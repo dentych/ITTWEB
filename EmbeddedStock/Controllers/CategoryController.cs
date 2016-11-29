@@ -78,7 +78,9 @@ namespace WebApplication.Controllers
         {
             if (includeTypes)
             {
-                return context.Categories.Include(c => c.CategoryComponentTypes).Single(c => c.CategoryId == id);
+                return context.Categories.Include(c => c.CategoryComponentTypes)
+                    .ThenInclude(cct => cct.ComponentType)
+                    .Single(c => c.CategoryId== id);
             }
             else
             {

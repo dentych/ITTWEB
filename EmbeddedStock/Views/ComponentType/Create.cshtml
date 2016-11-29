@@ -1,0 +1,15 @@
+﻿@{ ViewData["title"] = "Add componentType"; }
+
+<h2>Create ComponentType</h2>
+
+<form asp-controller="ComponentType" asp-action="Create" method="post">
+  <div class="form-group">
+    <label for="ctName">ComponentType name:</label>
+    <input type="text" class="form-control" name="ctName" id="ctName"/>
+  </div>
+  @if (ViewData["error"] != null)
+  {
+      <span class="text-danger">@ViewData["error"]</span><br><br>
+  }
+  <button type="submit">Create</button>
+</form>

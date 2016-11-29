@@ -14,18 +14,18 @@
         <th>Components</th>
         <th>Actions</th>
       </tr>
-@*      @foreach (var componentType in Model)*@
-@*      {*@
-@*          <tr>*@
-@*            <td>@componentType.ComponentTypeId</td>*@
-@*            <td>@componentType.ComponentName</td>*@
-@*            <td>@componentType.Components.Count</td>*@
-@*            <td>*@
-@*              <a asp-action="Show" asp-route-id="@componentType.ComponentTypeId">Show</a>*@
-@*              &nbsp;<a asp-action="Delete" asp-route-id="@componentType .CategoryId">Delete</a>*@
-@*            </td>*@
-@*          </tr>*@
-@*      }*@
+      @foreach (var componentType in Model)
+      {
+          <tr>
+            <td>@componentType.ComponentTypeId</td>
+            <td>@componentType.ComponentName</td>
+            <td>@componentType.Components.Count</td>
+            <td>
+              <a asp-action="Show" asp-route-id="@componentType.ComponentTypeId">Show</a>
+              &nbsp;<a asp-action="Delete" asp-route-id="@componentType.ComponentTypeId">Delete</a>
+            </td>
+          </tr>
+      }
     </table>
     <a asp-action="Create"><button class="btn btn-primary">Create ComponentType</button></a>
   </div>

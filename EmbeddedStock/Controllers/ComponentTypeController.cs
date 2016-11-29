@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebApplication.Data;
 using WebApplication.Models;
@@ -13,21 +14,19 @@ namespace WebApplication.Controllers
 
         public ComponentTypeController(ComponentDbContext context)
         {
-            System.Diagnostics.Debug.WriteLine("Andy: get Context");
             this.context = context;
         }
 
         public IActionResult Index()
         {
-            System.Diagnostics.Debug.WriteLine("Andy: Index");
-            return View();
+            var componentTypes = context.ComponentTypes.Include(ct => ct.Categories).ToList();
+            return View(componentTypes);
 
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            System.Diagnostics.Debug.WriteLine("Andy: Get Create");
             return View();
         }
 
@@ -39,7 +38,6 @@ namespace WebApplication.Controllers
                 var coType = new ComponentType();
                 coType.ComponentName = ctName;
 
-                System.Diagnostics.Debug.WriteLine("Andy: Add to context");
                 context.ComponentTypes.Add(coType);
                 context.SaveChanges(true);
 
@@ -47,17 +45,14 @@ namespace WebApplication.Controllers
             }
             else
             {
-                ViewData["error"] = "Please input a correct name you noob.";
+                ViewData["error"] = "Please input a correct name.";
                 return View();
             }
         }
 
         public IActionResult Show(int id)
         {
-            var componentType = context.ComponentTypes.Single(c => c.ComponentTypeId == id);
-
-            System.Diagnostics.Debug.WriteLine("Andy " + id);
-            System.Diagnostics.Debug.WriteLine("Andy: " + context);
+            var componentType = context.ComponentTypes.Single(ct => ct.ComponentTypeId == id);
 
             return View(componentType);
 
@@ -82,7 +77,7 @@ namespace WebApplication.Controllers
 
         private ComponentType findComponentTypeById(int id)
         {
-            return context.ComponentTypes.Single(c => c.ComponentTypeId == id);
+            return context.ComponentTypes.Single(ct => ct.ComponentTypeId == id);
         }
 
     }

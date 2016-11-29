@@ -1,0 +1,42 @@
+﻿@model WebApplication.Models.ComponentViewModels.ComponentShowViewModel
+@{ ViewData["title"] = "Showing component information"; }
+
+<div class="row">
+  <div class="col-xs-6">
+    <h2>Showing component details</h2>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <td>@Model.ComponentId</td>
+      </tr>
+      <tr>
+        <th>Component type</th>
+        <td>
+          <a asp-controller="ComponentType" asp-action="Show" asp-route-id="@Model.ComponentTypeId">
+            @Model.ComponentType.ComponentName
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <th>Component number</th>
+        <td>@Model.ComponentNumber</td>
+      </tr>
+      <tr>
+        <th>Serial number</th>
+        <td>@Model.SerialNo</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td>@Model.Status</td>
+      </tr>
+      <tr>
+        <th>Admin comment</th>
+        <td>@Model.AdminComment</td>
+      </tr>
+      <tr>
+        <th>User comment</th>
+        <td>@Model.UserComment</td>
+      </tr>
+    </table>
+  </div>
+</div>

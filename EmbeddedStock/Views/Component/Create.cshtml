@@ -1,0 +1,54 @@
+﻿@using System
+@model ComponentType
+@{ ViewData["title"] = "Create component"; }
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Create new component</h2>
+    <form class="form-horizontal" asp-action="Create" method="post">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Component type</label>
+        <div class="col-xs-10">
+          <p class="form-control-static">@Model.ComponentName</p>
+          <input type="hidden" name="componentTypeId" value="@Model.ComponentTypeId">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="componentNumber" class="col-sm-2 control-label">Component number</label>
+        <div class="col-xs-10">
+          <input type="number" class="form-control" placeholder="Component number" id="componentNumber" name="componentNumber" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="serialNo">Serial number</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Serial #" id="serialNo" name="serialNo"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="status">Status</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="status" name="status">
+            @foreach (var status in Enum.GetValues(typeof(ComponentStatus)))
+            {
+                <option>@status</option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="adminComment">Admin comment</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Admin comment" id="adminComment" name="adminComment"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="userComment">User comment</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="User comment" id="userComment" name="userComment"/>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Create component</button>
+    </form>
+  </div>
+</div>

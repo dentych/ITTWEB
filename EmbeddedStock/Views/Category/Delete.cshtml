@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["title"] = "Delete category";
+}
+
+<div class="col-md-12">
+  <h2>Delete a category</h2>
+  <form class="form" asp-action="Delete" asp-route-id="@ViewData["id"]">
+    <div class="form-group">
+      Are you sure you want to delete the category with ID: @ViewData["id"]?
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Yes</button>
+      <button type="button" class="btn btn-warning">No</button>
+    </div>
+  </form>
+</div>

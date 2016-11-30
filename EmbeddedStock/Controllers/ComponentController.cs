@@ -49,5 +49,28 @@ namespace WebApplication.Controllers
             var model = new ComponentShowViewModel(component, componentType);
             return View(model);
         }
+
+
+        public IActionResult Delete(int id)
+        {
+            ViewData["id"] = id;
+            return View();
+        }
+
+        [ActionName("Delete")]
+        [HttpPost]
+        public IActionResult Delete_ComponentType(int id)
+        {
+            var component = findComponentById(id);
+            context.Components.Remove(component);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        private Component findComponentById(int id)
+        {
+            return context.Components.Single(ct => ct.ComponentId == id);
+        }
     }
 }

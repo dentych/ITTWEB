@@ -1,15 +1,69 @@
 ﻿@{ ViewData["title"] = "Add componentType"; }
 
-<h2>Create ComponentType</h2>
-
-<form asp-controller="ComponentType" asp-action="Create" method="post">
-  <div class="form-group">
-    <label for="ctName">ComponentType name:</label>
-    <input type="text" class="form-control" name="ctName" id="ctName"/>
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Create new componentType</h2>
+    <form class="form-horizontal" asp-action="Create" method="post">
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctName">Component Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="ComponentType Name" id="ctName" name="ctName"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctInfo">Component Info:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="ComponentType Info" id="ctInfo" name="ctInfo"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctLocation">Location:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Location" id="ctLocation" name="ctLocation"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctStatus">Status:</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="ctStatus" name="ctStatus">
+            @foreach (var status in Enum.GetValues(typeof(ComponentTypeStatus)))
+            {
+                <option>@status</option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctDatasheet">Datasheet:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Datasheet" id="ctDatasheet" name="ctDatasheet"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctImageURL">ImageURL:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="ImageURL" id="ctImageURL" name="ctImageURL"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctManufacturer">Manufacturer:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Manufacturer" id="ctManufacturer" name="ctManufacturer"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctWikiLink">WikiLink:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="WikiLink" id="ctWikiLink" name="ctWikiLink"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="ctAdminComment">Admin comment:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Admin comment" id="ctAdminComment" name="ctAdminComment"/>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Create componentType</button>
+    </form>
   </div>
-  @if (ViewData["error"] != null)
-  {
-      <span class="text-danger">@ViewData["error"]</span><br><br>
-  }
-  <button type="submit">Create</button>
-</form>
+</div>

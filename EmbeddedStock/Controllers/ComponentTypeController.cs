@@ -19,7 +19,7 @@ namespace WebApplication.Controllers
 
         public IActionResult Index()
         {
-            var componentTypes = context.ComponentTypes.Include(ct => ct.Categories).ToList();
+            var componentTypes = context.ComponentTypes.Include(ct => ct.CategoryComponentTypes).ToList();
             return View(componentTypes);
 
         }

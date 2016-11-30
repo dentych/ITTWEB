@@ -4,6 +4,15 @@
     ViewData["title"] = "ComponentType created";
 }
 
-<h2>ComponentType created</h2>
-<p><strong>Name:</strong> @Model.ComponentName</p>
-<p><strong>ID:</strong> @Model.ComponentTypeId</p>
+<div class="row">
+  <div class="col-xs-12">
+    <h2>ComponentType created</h2>
+    <p>
+      <strong>Name:</strong> @Model.ComponentName</p>
+    <p>
+      <strong>ID:</strong> @Model.ComponentTypeId</p>
+    <a asp-controller="Component" asp-action="Create" asp-route-componentTypeId="@Model.ComponentTypeId">
+      <button class="btn btn-primary">Add component</button>
+    </a>
+  </div>
+</div>

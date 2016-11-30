@@ -39,7 +39,7 @@ namespace WebApplication.Controllers
             context.Components.Add(component);
             context.SaveChanges();
 
-            return RedirectToAction("Show", "ComponentType", new {id = component.ComponentTypeId});
+            return RedirectToAction("Show", "ComponentType", new { id = component.ComponentTypeId });
         }
 
         public IActionResult Show(int id)
@@ -49,7 +49,6 @@ namespace WebApplication.Controllers
             var model = new ComponentShowViewModel(component, componentType);
             return View(model);
         }
-
 
         public IActionResult Delete(int id)
         {
@@ -65,7 +64,7 @@ namespace WebApplication.Controllers
             context.Components.Remove(component);
             context.SaveChanges();
 
-            return RedirectToAction("Show", "ComponentType", new {id = component.ComponentTypeId});
+            return RedirectToAction("Show", "ComponentType", new { id = component.ComponentTypeId });
         }
 
         private Component findComponentById(int id)

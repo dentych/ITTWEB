@@ -7,6 +7,6 @@ Five mandatory exercises are to be handed in, as well as an exam project (which 
 
 ## Group members
 
-* Agoturd
+* Agotado
 * Davidslowpoke
 * Dentych

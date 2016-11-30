@@ -23,7 +23,6 @@ namespace WebApplication.Controllers
         {
             var componentTypes = context.ComponentTypes.Include(ct => ct.CategoryComponentTypes).ToList();
             return View(componentTypes);
-
         }
 
         [HttpGet]
@@ -54,10 +53,13 @@ namespace WebApplication.Controllers
 
         public IActionResult Show(int id)
         {
-            var componentType = context.ComponentTypes.Single(ct => ct.ComponentTypeId == id);
+            var componentType =
+                context.ComponentTypes.Include(ct => ct.CategoryComponentTypes)
+                    .ThenInclude(cct => cct.Category)
+                    .Include(ct => ct.Components)
+                    .Single(ct => ct.ComponentTypeId == id);
 
             return View(componentType);
-
         }
 
         public IActionResult Delete(int id)
@@ -81,6 +83,5 @@ namespace WebApplication.Controllers
         {
             return context.ComponentTypes.Single(ct => ct.ComponentTypeId == id);
         }
-
     }
 }

@@ -39,7 +39,7 @@ namespace WebApplication.Controllers
             context.Components.Add(component);
             context.SaveChanges();
 
-            return RedirectToAction("Show", new {id = component.ComponentId});
+            return RedirectToAction("Show", "ComponentType", new {id = component.ComponentTypeId});
         }
 
         public IActionResult Show(int id)

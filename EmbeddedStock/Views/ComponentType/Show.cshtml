@@ -5,12 +5,48 @@
 }
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12 col-md-6">
     <h2>ComponentType created</h2>
-    <p>
-      <strong>Name:</strong> @Model.ComponentName</p>
-    <p>
-      <strong>ID:</strong> @Model.ComponentTypeId</p>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <td>@Model.ComponentName</td>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <td>@Model.ComponentTypeId</td>
+      </tr>
+      <tr>
+        <th>Components</th>
+        <td>
+          <ul>
+            @foreach (var component in Model.Components)
+            {
+                <li>
+                  <a asp-controller="Component" asp-action="Show" asp-route-id="@component.ComponentId">
+                    @component.ComponentNumber
+                  </a>
+                </li>
+            }
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th>Categories this type is part of</th>
+        <td>
+          <ul>
+            @foreach (var category in Model.CategoryComponentTypes)
+            {
+                <li>
+                  <a asp-controller="Category" asp-action="Show" asp-route-id="@category.Category.CategoryId">
+                    @category.Category.Name
+                  </a>
+                </li>
+            }
+          </ul>
+        </td>
+      </tr>
+    </table>
     <a asp-controller="Component" asp-action="Create" asp-route-componentTypeId="@Model.ComponentTypeId">
       <button class="btn btn-primary">Add component</button>
     </a>

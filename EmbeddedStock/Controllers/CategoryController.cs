@@ -92,13 +92,33 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult ComponentType(int id)
+        {
+            var model = context.ComponentTypes.ToList();
+            ViewData["id"] = id;
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ComponentType(int id, int componentTypeId)
+        {
+            var category = findCategoryById(id, true);
+            category.CategoryComponentTypes.Add(new CategoryComponentType
+            {
+                CategoryId = id,
+                ComponentTypeId = componentTypeId
+            });
+            context.SaveChanges();
+            return RedirectToAction("Show", new {id = id});
+        }
+
         private Category findCategoryById(int id, bool includeTypes = false)
         {
             if (includeTypes)
             {
                 return context.Categories.Include(c => c.CategoryComponentTypes)
                     .ThenInclude(cct => cct.ComponentType)
-                    .Single(c => c.CategoryId== id);
+                    .Single(c => c.CategoryId == id);
             }
             else
             {

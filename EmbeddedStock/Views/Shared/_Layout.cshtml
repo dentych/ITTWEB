@@ -57,6 +57,9 @@
             </li>
           </ul>
         </li>
+        <li>
+          <a asp-controller="Search" asp-action="Index">Component search</a>
+        </li>
       </ul>
       @await Html.PartialAsync("_LoginPartial")
     </div>
@@ -80,10 +83,12 @@
           asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
           asp-fallback-test="window.jQuery">
 
+
   </script>
   <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
           asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
           asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+
 
   </script>
   <script src="~/js/site.min.js" asp-append-version="true"></script>

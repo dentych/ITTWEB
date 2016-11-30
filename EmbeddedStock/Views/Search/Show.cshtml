@@ -1,0 +1,27 @@
+﻿@model System.Collections.Generic.List<ComponentType>
+
+@{ ViewData["title"] = "Showing search result"; }
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <h2>Showing search result</h2>
+    @if (@Model.Count > 0)
+    {
+        <h4>Found the following component types:</h4>
+    }
+    else
+    {
+        <p>
+          <strong>Found no component types from the searched query</strong>
+        </p>
+    }
+    @foreach (var componentType in @Model)
+    {
+        <h4>
+          <a asp-controller="ComponentType" asp-action="Show" asp-route-id="@componentType.ComponentTypeId">
+            @componentType.ComponentName<br>
+          </a>
+        </h4>
+    }
+  </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@using System.Linq
+@model System.Collections.Generic.List<ComponentType>
+
+@{ ViewData["title"] = "Add component type to category"; }
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <h2>Add component type to category</h2>
+    <form method="post" asp-action="ComponentType" asp-route-id="@ViewData["id"]">
+      <div class="form-group">
+        <label for="componentTypeId">Componen type to add to category</label>
+        <select class="form-control" name="componentTypeId" id="componentTypeId">
+          @foreach (var componentType in @Model)
+          {
+              <option value="@componentType.ComponentTypeId">@componentType.ComponentName</option>
+          }
+        </select>
+      </div>
+<button class="btn btn-primary" type="submit">Add component type</button>
+    </form>
+  </div>
+</div>

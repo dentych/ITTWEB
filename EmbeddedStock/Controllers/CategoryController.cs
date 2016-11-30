@@ -94,7 +94,14 @@ namespace WebApplication.Controllers
 
         public IActionResult ComponentType(int id)
         {
-            var model = context.ComponentTypes.ToList();
+            var categoryComponentTypes = context.Categories.Where(c => c.CategoryId == id)
+                .Include(c => c.CategoryComponentTypes)
+                .ThenInclude(cct => cct.ComponentType)
+                .ToList();
+            var model = context.ComponentTypes.Include(ct => ct.CategoryComponentTypes)
+                .ThenInclude(cct => cct.Category)
+                .Where(ct => ct.CategoryComponentTypes.All(cct => cct.CategoryId != id))
+                .ToList();
             ViewData["id"] = id;
             return View(model);
         }
@@ -102,6 +109,11 @@ namespace WebApplication.Controllers
         [HttpPost]
         public IActionResult ComponentType(int id, int componentTypeId)
         {
+            if (componentTypeId < 1)
+            {
+                return RedirectToAction("Show", new {id = id});
+            }
+
             var category = findCategoryById(id, true);
             category.CategoryComponentTypes.Add(new CategoryComponentType
             {

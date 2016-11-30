@@ -32,12 +32,21 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(string ctName)
+        public IActionResult Create(string ctName, string ctInfo, string ctLocation, ComponentTypeStatus ctStatus,
+            string ctDatasheet, string ctImageUrl, string ctManufacturer, string ctWikiLink, string ctAdminComment)
         {
             if (!string.IsNullOrEmpty(ctName))
             {
                 var coType = new ComponentType();
                 coType.ComponentName = ctName;
+                coType.ComponentInfo = ctInfo;
+                coType.Location = ctLocation;
+                coType.Status = ctStatus;
+                coType.Datasheet = ctDatasheet;
+                coType.ImageUrl = ctImageUrl;
+                coType.Manufacturer = ctManufacturer;
+                coType.WikiLink = ctWikiLink;
+                coType.AdminComment = ctAdminComment;
 
                 context.ComponentTypes.Add(coType);
                 context.SaveChanges(true);

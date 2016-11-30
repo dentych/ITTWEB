@@ -35,7 +35,7 @@ namespace WebApplication.Controllers
         public IActionResult Create(string ctName, string ctInfo, string ctLocation, ComponentTypeStatus ctStatus,
             string ctDatasheet, string ctImageUrl, string ctManufacturer, string ctWikiLink, string ctAdminComment)
         {
-            if (!string.IsNullOrEmpty(ctName)) //TODO: consider if needed + fix error handling
+            if (!string.IsNullOrEmpty(ctName))
             {
                 var coType = new ComponentType();
                 coType.ComponentName = ctName;

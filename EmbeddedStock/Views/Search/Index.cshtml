@@ -1,0 +1,14 @@
+﻿@{ ViewData["title"] = "Search for component"; }
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <h2>Search for component type names</h2>
+    <form class="form" asp-action="Show" method="get">
+      <div class="form-group">
+        <label for="query">Search query</label>
+        <input type="text" class="form-control" id="query" name="query"/>
+      </div>
+      <button class="btn btn-primary">Search</button>
+    </form>
+  </div>
+</div>

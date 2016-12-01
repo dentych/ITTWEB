@@ -60,14 +60,14 @@ namespace WebApplication.Controllers
         [HttpPost]
         public IActionResult Delete_Component(int id)
         {
-            var component = findComponentById(id);
+            var component = FindComponentById(id);
             context.Components.Remove(component);
             context.SaveChanges();
 
             return RedirectToAction("Show", "ComponentType", new { id = component.ComponentTypeId });
         }
 
-        private Component findComponentById(int id)
+        private Component FindComponentById(int id)
         {
             return context.Components.Single(ct => ct.ComponentId == id);
         }

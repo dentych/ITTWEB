@@ -69,7 +69,7 @@ namespace WebApplication.Controllers
 
         private Component FindComponentById(int id)
         {
-            return context.Components.Single(ct => ct.ComponentId == id);
+            return context.Components.Single(c => c.ComponentId == id);
         }
     }
 }

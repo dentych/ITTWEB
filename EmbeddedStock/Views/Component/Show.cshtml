@@ -38,8 +38,11 @@
         <td>@Model.UserComment</td>
       </tr>
     </table>
-    <a asp-controller="Component" asp-action="Delete" asp-route-id="@Model.ComponentId">
-      <button class="btn btn-primary">Delete component</button>
-    </a>
+      <a asp-controller="Component" asp-action="Delete" asp-route-id="@Model.ComponentId">
+          <button class="btn btn-primary">Delete component</button>
+      </a>
+      <a asp-controller="Component" asp-action="Edit" asp-route-id="@Model.ComponentId">
+          <button class="btn btn-primary">Edit component</button>
+      </a>
   </div>
 </div>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using WebApplication.Models.ComponentViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -42,12 +43,55 @@ namespace WebApplication.Controllers
             return RedirectToAction("Show", "ComponentType", new { id = component.ComponentTypeId });
         }
 
+        [HttpPost]
+        public IActionResult Save(long componentTypeId, int componentNumber, string serialNo,
+            ComponentStatus status, string adminComment, string userComment)
+        {
+            var component = new Component();
+            component.ComponentTypeId = componentTypeId;
+            component.ComponentNumber = componentNumber;
+            component.SerialNo = serialNo;
+            component.Status = status;
+            component.AdminComment = adminComment;
+            component.UserComment = userComment;
+
+            context.Components.Update(component);
+            context.SaveChanges();
+
+            return RedirectToAction("Show", "ComponentType", new { id = component.ComponentTypeId });
+        }
+
         public IActionResult Show(int id)
         {
             var component = context.Components.Single(c => c.ComponentId == id);
             var componentType = context.ComponentTypes.Single(ct => ct.ComponentTypeId == component.ComponentTypeId);
             var model = new ComponentShowViewModel(component, componentType);
             return View(model);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var component = context.Components.Single(c => c.ComponentId == id);
+            var componentType = context.ComponentTypes.Single(ct => ct.ComponentTypeId == component.ComponentTypeId);
+            var model = new ComponentEditViewModel(component, componentType);
+            return View(model);
+        }
+
+        [ActionName("Edit")]
+        [HttpPost]
+        public IActionResult Edit(int id, int componentNumber, string serialNo,
+            ComponentStatus Status, string adminComment, string userComment)
+        {
+            var component = FindComponentById(id);
+            component.AdminComment = adminComment;
+            component.ComponentNumber = componentNumber;
+            component.SerialNo = serialNo;
+            component.Status = Status;
+            component.UserComment = userComment;
+            context.Components.Update(component);
+            context.SaveChanges();
+
+            return RedirectToAction("Show", "Component", new { id = component.ComponentId });
         }
 
         public IActionResult Delete(int id)

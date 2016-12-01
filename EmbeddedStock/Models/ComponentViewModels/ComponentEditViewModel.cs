@@ -1,16 +1,14 @@
-﻿using WebApplication.Models;
-
-namespace WebApplication.Models.ComponentViewModels
+﻿namespace WebApplication.Models.ComponentViewModels
 {
-    public class ComponentShowViewModel
+    public class ComponentEditViewModel
     {
-        public ComponentShowViewModel(Component component, ComponentType componentType)
+        public ComponentEditViewModel(Component component, ComponentType componentType)
         {
             ComponentId = component.ComponentId;
             ComponentTypeId = component.ComponentTypeId;
             ComponentNumber = component.ComponentNumber;
-            SerialNo = component.SerialNo;
             Status = component.Status;
+            SerialNo = component.SerialNo;
             AdminComment = component.AdminComment;
             UserComment = component.UserComment;
 

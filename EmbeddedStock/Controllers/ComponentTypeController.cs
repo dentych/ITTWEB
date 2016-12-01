@@ -21,7 +21,7 @@ namespace WebApplication.Controllers
 
         public IActionResult Index()
         {
-            var componentTypes = context.ComponentTypes.Include(ct => ct.CategoryComponentTypes).ToList();
+            var componentTypes = context.ComponentTypes.Include(ct => ct.Components).ToList();
             return View(componentTypes);
         }
 

@@ -65,7 +65,7 @@ namespace WebApplication.Controllers
         {
             var component = context.Components.Single(c => c.ComponentId == id);
             var componentType = context.ComponentTypes.Single(ct => ct.ComponentTypeId == component.ComponentTypeId);
-            var model = new ComponentShowViewModel(component, componentType);
+            var model = new ComponentViewModel(component, componentType);
             return View(model);
         }
 
@@ -73,7 +73,7 @@ namespace WebApplication.Controllers
         {
             var component = context.Components.Single(c => c.ComponentId == id);
             var componentType = context.ComponentTypes.Single(ct => ct.ComponentTypeId == component.ComponentTypeId);
-            var model = new ComponentEditViewModel(component, componentType);
+            var model = new ComponentViewModel(component, componentType);
             return View(model);
         }
 

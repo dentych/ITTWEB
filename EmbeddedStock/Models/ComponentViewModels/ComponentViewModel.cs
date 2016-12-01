@@ -2,9 +2,9 @@
 
 namespace WebApplication.Models.ComponentViewModels
 {
-    public class ComponentShowViewModel
+    public class ComponentViewModel
     {
-        public ComponentShowViewModel(Component component, ComponentType componentType)
+        public ComponentViewModel(Component component, ComponentType componentType)
         {
             ComponentId = component.ComponentId;
             ComponentTypeId = component.ComponentTypeId;

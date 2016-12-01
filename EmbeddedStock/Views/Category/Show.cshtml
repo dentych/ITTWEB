@@ -22,7 +22,11 @@
           <ul>
             @foreach (var component in Model.CategoryComponentTypes)
             {
-                <li>@component.ComponentType.ComponentName</li>
+                <li>
+                  <a asp-controller="ComponentType" asp-action="Show" asp-route-id="@component.ComponentType.ComponentTypeId">
+                    @component.ComponentType.ComponentName
+                  </a>
+                </li>
             }
           </ul>
         </td>

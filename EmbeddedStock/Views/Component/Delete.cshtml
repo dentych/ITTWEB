@@ -1,0 +1,18 @@
+@{
+    ViewData["title"] = "Delete a component";
+}
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Delete a component</h2>
+    <form class="form" asp-action="Delete" asp-route-id="@ViewData["id"]">
+      <div class="form-group">
+        Are you sure you want to delete the component with the ID: @ViewData["id"]?
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-warning" onclick="window.location.href = '../Show/@ViewData["id"]'">No</button>
+      </div>
+    </form>
+  </div>
+</div>

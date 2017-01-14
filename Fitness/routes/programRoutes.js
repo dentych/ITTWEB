@@ -1,50 +1,33 @@
 let express = require("express");
 
-let ProgramController = require("../controllers/programController");
-let programController = new ProgramController();
+let programController = require("../controllers/programController");
 
 module.exports = function () {
     var router = express.Router();
 
-    router.get("/", (req, res) =>
-        programController.getIndex(req, res)
-    );
+    router.get("/", programController.getIndex);
 
-    router.get("/program/:id", (req, res) =>
-        programController.getProgramById(req, res)
-    );
+    router.get("/program/:id", programController.getProgramById);
 
-    router.get("/program/:id/add-exercise", (req, res) =>
-        programController.getProgramAddExercise(req, res)
-    );
+    router.get("/program/:id/add-exercise", programController.getProgramAddExercise);
 
     router.get("/create-exercise", function (req, res) {
         res.render("create-exercise")
     });
 
-    router.post("/", (req, res) =>
-        programController.postProgramIndex(req, res)
-    );
+    router.post("/", programController.postProgramIndex);
 
-    router.post("/program/:id/add-exercise", (req, res) =>
-        programController.postProgramAddExercise(req, res)
-    );
+    router.post("/program/:id/add-exercise", programController.postProgramAddExercise);
 
-    router.post("/program/:id/complete", (req, res) =>
-        programController.postProgramComplete(req, res)
-    );
+    router.post("/program/:id/complete", programController.postProgramComplete);
 
     router.post("/create-exercise", function (req, res) {
         res.send("not implemented");
     });
 
-    router.delete("/program/:id/exercise/:exercise", (req, res) =>
-        programController.deleteProgramExercise(req, res)
-    );
+    router.delete("/program/:id/exercise/:exercise", programController.deleteProgramExercise);
 
-    router.delete("/program/:id/delete", (req, res) =>
-        programController.deleteProgramById(req, res)
-    );
+    router.delete("/program/:id/delete", programController.deleteProgramById);
 
     return router;
 };

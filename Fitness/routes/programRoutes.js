@@ -5,29 +5,21 @@ let programController = require("../controllers/programController");
 module.exports = function () {
     var router = express.Router();
 
-    router.get("/", programController.getIndex);
+    router.route("/:id/add-exercise")
+        .get(programController.getProgramAddExercise)
+        .post(programController.postProgramAddExercise);
 
-    router.get("/program/:id", programController.getProgramById);
+    router.route("/:id")
+        .get(programController.getProgramById)
+        .delete(programController.deleteProgramById);
 
-    router.get("/program/:id/add-exercise", programController.getProgramAddExercise);
-
-    router.get("/create-exercise", function (req, res) {
-        res.render("create-exercise")
-    });
+    router.get("/",programController.getIndex);
 
     router.post("/", programController.postProgramIndex);
 
-    router.post("/program/:id/add-exercise", programController.postProgramAddExercise);
+    router.post("/:id/complete", programController.postProgramComplete);
 
-    router.post("/program/:id/complete", programController.postProgramComplete);
-
-    router.post("/create-exercise", function (req, res) {
-        res.send("not implemented");
-    });
-
-    router.delete("/program/:id/exercise/:exercise", programController.deleteProgramExercise);
-
-    router.delete("/program/:id/delete", programController.deleteProgramById);
+    router.delete("/:id/exercise/:exercise", programController.deleteProgramExercise);
 
     return router;
 };

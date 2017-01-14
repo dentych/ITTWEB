@@ -34,9 +34,10 @@ app.set("views", path.join(__dirname, "views"));
 // Global variable for programs.
 var programs = [];
 
-var routes = require("./routes/programRoutes");
+var programRoutes = require("./routes/programRoutes");
 // Routes
-app.use(routes());
+app.get("/", (req, res) => res.redirect("/program"));
+app.use("/program", programRoutes());
 
 // Start server listener
 app.listen(3000, () => {

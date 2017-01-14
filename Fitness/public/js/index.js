@@ -5,7 +5,7 @@ $(document).ready(function () {
 
         if(programName !== "" && programName != undefined) {
             $.ajax({
-                url: "/",
+                url: "/program",
                 method: "POST",
                 data: JSON.stringify({programName: programName}),
                 contentType: "application/json",
@@ -30,7 +30,7 @@ function deleteProgram(index) {
 
     if (answer) {
         $.ajax({
-            url: "/program/" + index + "/delete",
+            url: "/program/" + index,
             type: "DELETE",
             success: function(data) {
                 window.location.reload();

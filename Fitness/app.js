@@ -3,11 +3,7 @@
 // Requires
 let express = require("express");
 let app = express();
-let morgan = require("morgan");
-let bodyparser = require("body-parser");
 let mongoose = require("mongoose");
-let favicon = require("serve-favicon");
-let path = require("path");
 
 // Setup
 mongoose.Promise = global.Promise;
@@ -17,19 +13,8 @@ db.on("error", function (err) {
     console.log("DB connection failed: " + err.message);
     process.exit(1);
 });
-
-
-
-app.use("/static", express.static("public/"));
-app.use("/static/css", express.static("node_modules/bootstrap-material-design/dist/css"));
-app.use("/static/js", express.static("node_modules/bootstrap-material-design/dist/js"));
-app.use(morgan("dev"));
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: true}));
-app.use(favicon(__dirname + "/public/favicon.png"));
-
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
+// Setup express app
+require("./setup");
 
 // Global variable for programs.
 var programs = [];

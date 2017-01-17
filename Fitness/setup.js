@@ -2,6 +2,7 @@ let bodyparser = require("body-parser");
 let express = require("express");
 let path = require("path");
 let morgan = require("morgan");
+let favicon = require("serve-favicon");
 
 module.exports = function (app) {
     app.use("/static", express.static("public/"));

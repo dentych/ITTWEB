@@ -13,7 +13,7 @@ module.exports = function () {
         .get(programController.getProgramById)
         .delete(programController.deleteProgramById);
 
-    router.get("/",programController.getIndex);
+    router.get("/", programController.getIndex);
 
     router.post("/", programController.postProgramIndex);
 

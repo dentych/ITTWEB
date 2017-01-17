@@ -14,7 +14,7 @@ db.on("error", function (err) {
     process.exit(1);
 });
 // Setup express app
-require("./setup");
+require("./setup")(app);
 
 // Global variable for programs.
 var programs = [];

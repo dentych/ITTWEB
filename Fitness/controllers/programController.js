@@ -8,15 +8,10 @@ let programModel = mongoose.model("Program", programSchema);
 
 module.exports.getIndex = function (req, res) {
     programModel.find({}, function (err, dbPrograms) {
-        var programMap = [];
-
-        dbPrograms.forEach(function (program) {
-            programMap.push(program);
-        });
         res.render("index", {
             title: "Fitness Helper 3000",
             message: "Welcome to Fitness Helper 3000",
-            programs: programMap
+            programs: dbPrograms
         });
     });
 };
